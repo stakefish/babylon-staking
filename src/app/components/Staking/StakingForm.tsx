@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Activity } from "@/app/components/Delegations/Activity";
 import { useStakingService } from "@/app/hooks/services/useStakingService";
 import { useStakingState } from "@/app/state/StakingState";
+import { AuthGuard } from "@/components/common/AuthGuard";
 import { DelegationForm } from "@/components/staking/StakingForm";
 import { StakingModal } from "@/components/staking/StakingModal";
 import { getNetworkConfigBTC } from "@/config/network/btc";
@@ -45,23 +46,40 @@ export function StakingForm() {
       onSubmit={displayPreview}
     >
       <FinalityProviderAutoSelector />
-      <div className="flex flex-col gap-6 lg:flex-row mx-4">
-        <div className="flex-1 min-w-0 h-fit">
-          <Activity />
+      <AuthGuard
+        fallback={
+          <div className="flex flex-col mx-4 items-center justify-center">
+            <Card className="flex lg:w-2/5 xl:w-1/3 h-fit">
+              <DelegationForm
+                loading={loading}
+                available={available}
+                blocked={blocked}
+                disabled={disabled}
+                hasError={hasError}
+                error={errorMessage}
+                stakingInfo={stakingInfo}
+              />
+            </Card>
+          </div>
+        }
+      >
+        <div className="flex flex-col gap-6 lg:flex-row mx-4 justify-center">
+          <div className="flex-1 min-w-0 h-fit">
+            <Activity />
+          </div>
+          <Card className="flex lg:w-2/5 xl:w-1/3 h-fit">
+            <DelegationForm
+              loading={loading}
+              available={available}
+              blocked={blocked}
+              disabled={disabled}
+              hasError={hasError}
+              error={errorMessage}
+              stakingInfo={stakingInfo}
+            />
+          </Card>
         </div>
-
-        <Card className="flex lg:w-2/5 xl:w-1/3 h-fit">
-          <DelegationForm
-            loading={loading}
-            available={available}
-            blocked={blocked}
-            disabled={disabled}
-            hasError={hasError}
-            error={errorMessage}
-            stakingInfo={stakingInfo}
-          />
-        </Card>
-      </div>
+      </AuthGuard>
 
       <StakingModal />
     </Form>
