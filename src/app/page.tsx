@@ -1,14 +1,13 @@
 "use client";
 
 import { initBTCCurve } from "@babylonlabs-io/btc-staking-ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { StakingForm } from "@/app/components/Staking/StakingForm";
+import { StakeNowModal } from "@/stakefish/app/components/Modals/StakeNowModal";
 
 import { Container } from "./components/Container/Container";
 import { Activity } from "./components/Delegations/Activity";
 import { Header } from "./components/Header/Header";
-import { Phase2HereModal } from "./components/Modals/Phase2Here";
 import { PersonalBalance } from "./components/PersonalBalance/PersonalBalance";
 import { Stats } from "./components/Stats/Stats";
 
@@ -16,6 +15,9 @@ const Home = () => {
   useEffect(() => {
     initBTCCurve();
   }, []);
+
+  //todo: move later from here
+  const [showSfStakeNowModal, setShowSfStakeNowModal] = useState(true);
 
   return (
     <>
@@ -27,11 +29,12 @@ const Home = () => {
       >
         <Stats />
         <PersonalBalance />
-        <StakingForm />
+        <StakeNowModal
+          open={showSfStakeNowModal}
+          onClose={() => setShowSfStakeNowModal(false)}
+        />
         <Activity />
       </Container>
-
-      <Phase2HereModal />
     </>
   );
 };

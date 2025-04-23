@@ -66,7 +66,6 @@ export function StakingModal() {
           onSign={async () => {
             await createEOI(formData);
             resetForm({
-              finalityProvider: "",
               term: "",
               amount: "",
               feeRate: stakingInfo?.defaultFeeRate?.toString() ?? "0",
