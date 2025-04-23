@@ -7,8 +7,6 @@ import { StakingForm } from "@/app/components/Staking/StakingForm";
 
 import { Container } from "./components/Container/Container";
 import { Activity } from "./components/Delegations/Activity";
-import { FAQ } from "./components/FAQ/FAQ";
-import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
 import { Phase2HereModal } from "./components/Modals/Phase2Here";
 import { PersonalBalance } from "./components/PersonalBalance/PersonalBalance";
@@ -31,10 +29,8 @@ const Home = () => {
         <PersonalBalance />
         <StakingForm />
         <Activity />
-        <FAQ />
       </Container>
 
-      <Footer />
       <Phase2HereModal />
     </>
   );
