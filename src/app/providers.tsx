@@ -23,6 +23,7 @@ function Providers({ children }: React.PropsWithChildren) {
   return (
     <Suspense>
       <ScrollLocker>
+        {/* @ts-ignore NextThemesProvider typing issue */}
         <ThemeProvider
           defaultTheme="light"
           enableSystem
