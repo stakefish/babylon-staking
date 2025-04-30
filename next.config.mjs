@@ -8,6 +8,18 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  webpack(config, { dev, isServer }) {
+    if (!dev && !isServer) {
+      config.module.rules.push({
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+        exclude: /node_modules\/(?!@babylonlabs-io)/,
+      });
+    }
+
+    return config;
+  },
 };
 
 export default nextConfig;
