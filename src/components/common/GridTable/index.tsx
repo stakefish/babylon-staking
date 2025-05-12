@@ -26,7 +26,7 @@ export function GridTable<R extends object, P extends object = {}>({
   onCellClick,
   onInfiniteScroll = () => null,
   onSortColumn = () => null,
-}: TableProps<R, P>) {
+}: TableProps<R, P>): React.ReactElement | null {
   const id = useId();
 
   function handleCellClick(row: R, col: TableColumn<R, P>) {
@@ -46,7 +46,7 @@ export function GridTable<R extends object, P extends object = {}>({
   }
 
   if (!data?.length) {
-    return fallback;
+    return fallback as React.ReactElement | null;
   }
 
   return (

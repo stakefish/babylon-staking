@@ -42,7 +42,7 @@ export const Stats = memo(() => {
     {
       title: {
         text: `Total ${coinSymbol} TVL`,
-        tooltip: "Total number of active Bitcoins Staked",
+        tooltip: "Total number of Bitcoins staked in the protocol",
       },
       value: {
         text: totalActiveTVL
@@ -54,7 +54,7 @@ export const Stats = memo(() => {
     },
     {
       title: {
-        text: `Confirmed ${coinSymbol} TVL`,
+        text: `Registered ${coinSymbol} TVL`,
         tooltip:
           "The total amount of Bitcoin that has been registered in the Babylon Genesis network",
       },
@@ -77,7 +77,8 @@ export const Stats = memo(() => {
     {
       title: {
         text: `${coinSymbol} Staking APY`,
-        tooltip: `The APY is determined with reference to the quantity of BABY reward tokens currently allocated by the Babylon Genesis chain for distribution to BTC stakers, and such quantity being converted to its BTC equivalent using market prices obtained from reputable, independent third-party data sources.`,
+        tooltip:
+          "To determine the APY, the amount of BABY reward tokens allocated by the Babylon Genesis chain for BTC stakers is converted to its Bitcoin equivalent using market prices obtained from reliable, independent data sources. However, the APY is an approximate figure and can fluctuate, and the displayed value may not always be completely accurate",
       },
       value: {
         text: stakingAPY

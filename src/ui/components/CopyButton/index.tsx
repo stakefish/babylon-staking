@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useCallback } from "react";
+import { Fragment, useCallback } from "react";
 import type { UseClipboardOptions } from "use-clipboard-copy";
 import { useClipboard } from "use-clipboard-copy";
 
@@ -35,11 +35,15 @@ export const HigherOrderCopyButton = ({
     clipboard.copy(textToCopy);
   }, [textToCopy, clipboard]);
 
-  return children({
-    textToCopy,
-    handleCopyClick,
-    isCopied: clipboard.copied,
-  });
+  return (
+    <Fragment>
+      {children({
+        textToCopy,
+        handleCopyClick,
+        isCopied: clipboard.copied,
+      })}
+    </Fragment>
+  );
 };
 
 export interface IconCopyButtonProps extends ClipboardProps {

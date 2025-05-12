@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 import { StakingForm } from "@/app/components/Staking/StakingForm";
 
-import { Phase2HereModal } from "./components/Modals/Phase2Here";
 import { PersonalBalance } from "./components/PersonalBalance/PersonalBalance";
 import { Stats } from "./components/Stats/Stats";
 import { Footer } from "./componentsStakefish/Footer";
@@ -35,7 +34,6 @@ const Home = () => {
       </main>
 
       <Footer simple fixed />
-      <Phase2HereModal />
     </>
   );
 };
