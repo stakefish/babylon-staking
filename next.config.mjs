@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: false,
-  output: "export",
+  output:
+    process.env.CI || process.env.NEXT_BUILD_E2E == "true"
+      ? undefined
+      : "export",
   images: { unoptimized: true },
   productionBrowserSourceMaps: true,
   experimental: {
