@@ -52,7 +52,6 @@ export function StakingForm() {
             <PromptBox className="py-[10vh]">
               <DelegationForm
                 loading={loading}
-                available={available}
                 blocked={blocked}
                 disabled={disabled}
                 hasError={hasError}
