@@ -48,7 +48,7 @@ export const Header = () => {
       frontMenu={frontMenu}
       actionsContent={actionContent}
       className="w-screen py-2"
-      logoUrl={`${WEBSITE_URL}/`}
+      logoUrl={WEBSITE_URL}
     />
   );
 };
