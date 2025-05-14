@@ -25,15 +25,14 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
           {label}
         </div>
       )}
-      <div className="grid grid-cols-1 gap-0 overflow-hidden stats flounder:grid-cols-2">
+      <div className="grid grid-cols-1 gap-0 overflow-hidden stats flounder:grid-cols-2 whale:grid-cols-3">
         {sections.map((s, index) => {
           return (
             <div
               key={index}
               className={cx(
                 "flex justify-between border border-itemPrimaryMute gap-1.5 px-4",
-                index !== 0 ? "-mt-px py-[9px]" : "py-3.5",
-                index % 2 === 1 ? "-mr-px" : "",
+                index !== 0 ? "-mt-px pt-[9px] pb-[14px] -mr-px" : "py-3.5",
                 s.className,
               )}
             >
@@ -66,7 +65,7 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
                   s.value.loadingValue ? (
                     s.value.loadingValue
                   ) : (
-                    <div className={cx(index !== 0 && "text-right", "h-full")}>
+                    <div className="h-full">
                       <Skeleton width="30%" height="100%" />
                     </div>
                   )

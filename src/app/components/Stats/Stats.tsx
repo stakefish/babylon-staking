@@ -50,7 +50,7 @@ export const Stats = memo(() => {
           : NA_SYMBOL,
         isLoading: isSystemStatsLoading,
       },
-      className: "col-span-1 flex-col flounder:col-span-2",
+      className: "col-span-1 flounder:col-span-2 whale:col-span-3 flex-col",
     },
     {
       title: {
@@ -64,7 +64,7 @@ export const Stats = memo(() => {
           : `0.00000000 ${coinSymbol}`,
         isLoading: isSystemStatsLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: { text: "Max/Min Staking Period" },
@@ -72,7 +72,7 @@ export const Stats = memo(() => {
         text: `${stakingInfo?.maxStakingTimeBlocks.toLocaleString()}/${stakingInfo?.minStakingTimeBlocks.toLocaleString()} ${coinSymbol} Blocks`,
         isLoading: isStakingInfoLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: {
@@ -86,7 +86,7 @@ export const Stats = memo(() => {
           : NA_SYMBOL,
         isLoading: isSystemStatsLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: { text: "" },
@@ -94,7 +94,7 @@ export const Stats = memo(() => {
         text: "",
         isLoading: false,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col whale:hidden hidden flounder:block",
     },
   ];
 
