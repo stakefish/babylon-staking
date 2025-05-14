@@ -7,6 +7,7 @@ import {
 } from "@babylonlabs-io/wallet-connector";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { SigningStargateClient } from "@cosmjs/stargate";
+import { setUser } from "@sentry/nextjs";
 import {
   createContext,
   useCallback,
@@ -18,12 +19,11 @@ import {
 } from "react";
 
 import { useError } from "@/app/context/Error/ErrorProvider";
-import { ErrorType } from "@/app/types/errors";
 import { getNetworkConfigBBN } from "@/config/network/bbn";
+import { ClientError, ERROR_CODES } from "@/errors";
+import { useLogger } from "@/hooks/useLogger";
 import { createBbnAminoTypes } from "@/utils/wallet/amino";
 import { createBbnRegistry } from "@/utils/wallet/bbnRegistry";
-
-import { ClientError } from "../Error/errors";
 
 const { chainId, rpc } = getNetworkConfigBBN();
 
@@ -34,6 +34,7 @@ interface CosmosWalletContextProps {
   disconnect: () => void;
   open: () => void;
   signingStargateClient: SigningStargateClient | undefined;
+  walletName: string;
 }
 
 const CosmosWalletContext = createContext<CosmosWalletContextProps>({
@@ -43,6 +44,7 @@ const CosmosWalletContext = createContext<CosmosWalletContextProps>({
   disconnect: () => {},
   open: () => {},
   signingStargateClient: undefined,
+  walletName: "",
 });
 
 export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
@@ -54,8 +56,10 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
   const [signingStargateClient, setSigningStargateClient] = useState<
     SigningStargateClient | undefined
   >();
+  const [walletName, setWalletName] = useState("");
 
   const { handleError } = useError();
+  const logger = useLogger();
   const { open = () => {} } = useWalletConnect();
   const bbnConnector = useChainConnector("BBN");
 
@@ -63,6 +67,10 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
     setBBNWalletProvider(undefined);
     setCosmosBech32Address("");
     setSigningStargateClient(undefined);
+
+    setUser({
+      babylonAddress: null,
+    });
   }, []);
 
   const connectCosmos = useCallback(
@@ -78,9 +86,41 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
             await provider.getOfflineSigner();
 
         // @ts-ignore - chainId is missing in keplr types
-        if (offlineSigner.chainId && offlineSigner.chainId !== chainId) return;
+        if (offlineSigner.chainId && offlineSigner.chainId !== chainId) {
+          const networkMismatchError = new ClientError(
+            ERROR_CODES.WALLET_CONFIGURATION_ERROR,
+            `Cosmos wallet chain ID does not match configured chain ID (${chainId}).`,
+          );
+          logger.error(networkMismatchError, {
+            tags: { errorCode: networkMismatchError.errorCode },
+          });
+          throw networkMismatchError;
+        }
 
-        const address = await provider.getAddress();
+        const bech32Address = await provider.getAddress();
+        if (!bech32Address) {
+          const noAddressError = new ClientError(
+            ERROR_CODES.WALLET_CONFIGURATION_ERROR,
+            "Cosmos wallet provider returned an empty address.",
+          );
+          logger.error(noAddressError, {
+            tags: { errorCode: noAddressError.errorCode },
+          });
+          throw noAddressError;
+        }
+
+        const walletNameStr = await provider.getWalletProviderName();
+        if (!walletNameStr) {
+          const noWalletNameError = new ClientError(
+            ERROR_CODES.WALLET_CONFIGURATION_ERROR,
+            "Cosmos wallet provider returned an empty wallet name.",
+          );
+          logger.error(noWalletNameError, {
+            tags: { errorCode: noWalletNameError.errorCode },
+          });
+          throw noWalletNameError;
+        }
+
         const client = await SigningStargateClient.connectWithSigner(
           rpc,
           offlineSigner as OfflineSigner,
@@ -91,27 +131,43 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
         );
         setSigningStargateClient(client);
         setBBNWalletProvider(provider);
-        setCosmosBech32Address(address);
+        setCosmosBech32Address(bech32Address);
         setLoading(false);
+        setWalletName(walletNameStr || "Unknown Wallet");
+
+        setUser({
+          babylonAddress: bech32Address,
+        });
+
+        logger.info("Babylon wallet connected", {
+          babylonAddress: bech32Address,
+          walletName: walletNameStr || "Unknown Wallet",
+          chainId,
+        });
       } catch (error: any) {
+        const clientError = new ClientError(
+          ERROR_CODES.WALLET_ACTION_FAILED,
+          error.message,
+          { cause: error as Error },
+        );
+        logger.error(clientError, {
+          tags: {
+            errorCode: clientError.errorCode,
+          },
+        });
         handleError({
-          error: new ClientError(
-            {
-              message: error.message,
-              type: ErrorType.WALLET,
-            },
-            { cause: error },
-          ),
+          error: clientError,
           displayOptions: {
             retryAction: () => connectCosmos(provider),
           },
           metadata: {
             babylonAddress: cosmosBech32Address,
+            walletName,
           },
         });
       }
     },
-    [handleError, cosmosBech32Address],
+    [handleError, cosmosBech32Address, walletName, logger],
   );
 
   // Listen for Babylon account changes
@@ -138,6 +194,7 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
       disconnect: cosmosDisconnect,
       open,
       signingStargateClient,
+      walletName,
     }),
     [
       loading,
@@ -146,6 +203,7 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
       cosmosDisconnect,
       open,
       signingStargateClient,
+      walletName,
     ],
   );
 
@@ -164,6 +222,21 @@ export const CosmosWalletProvider = ({ children }: PropsWithChildren) => {
 
     return unsubscribe;
   }, [bbnConnector, connectCosmos]);
+
+  useEffect(() => {
+    if (!bbnConnector) return;
+
+    const installedWallets = bbnConnector.wallets
+      .filter((wallet) => wallet.installed)
+      .reduce(
+        (acc, wallet) => ({ ...acc, [wallet.id]: wallet.name }),
+        {} as Record<string, string>,
+      );
+
+    logger.info("Installed Babylon wallets", {
+      installedWallets: Object.values(installedWallets).join(", ") || "",
+    });
+  }, [bbnConnector]);
 
   return (
     <CosmosWalletContext.Provider value={cosmosContextValue}>

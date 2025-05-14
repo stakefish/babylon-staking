@@ -33,7 +33,6 @@ export function StakingForm() {
     stakingInfo,
     hasError,
     blocked,
-    available,
     disabled,
     errorMessage,
   } = useStakingState();
@@ -53,7 +52,6 @@ export function StakingForm() {
             <PromptBox className="py-[10vh]">
               <DelegationForm
                 loading={loading}
-                available={available}
                 blocked={blocked}
                 disabled={disabled}
                 hasError={hasError}
@@ -71,7 +69,6 @@ export function StakingForm() {
           <Card className="flex lg:w-2/5 xl:w-1/3 h-fit">
             <DelegationForm
               loading={loading}
-              available={available}
               blocked={blocked}
               disabled={disabled}
               hasError={hasError}
