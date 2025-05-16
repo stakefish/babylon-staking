@@ -64,7 +64,7 @@ export function PersonalBalance() {
           : NA_SYMBOL,
         isLoading: isBalanceLoading,
       },
-      className: "col-span-1 flounder:col-span-2 flex-col",
+      className: "col-span-1 flounder:col-span-2 whale:col-span-3 flex-col",
     },
     {
       title: {
@@ -79,7 +79,7 @@ export function PersonalBalance() {
           : NA_SYMBOL,
         isLoading: isBalanceLoading || hasUnconfirmedUTXOs,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: {
@@ -91,7 +91,7 @@ export function PersonalBalance() {
           : NA_SYMBOL,
         isLoading: isBalanceLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: { text: "" },
@@ -99,7 +99,7 @@ export function PersonalBalance() {
         text: "",
         isLoading: false,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col whale:hidden hidden flounder:block",
     },
     {
       title: { text: `${isMobile ? "BABY" : bbnNetworkName} Rewards` },
@@ -111,10 +111,10 @@ export function PersonalBalance() {
         }`,
         isLoading: rewardLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col ",
       button: formattedRewardBalance ? (
         <ActionComponent
-          className="h-6"
+          className="h-5"
           title="Claim"
           onAction={showPreview}
           isDisabled={!rewardBalance || processing}

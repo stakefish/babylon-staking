@@ -416,7 +416,7 @@ export const Delegations = ({}) => {
                       Status
                     </th>
                     <th className="text-left app-table-header-col table-cell">
-                      Action
+                      Actions
                     </th>
                   </tr>
                 </thead>

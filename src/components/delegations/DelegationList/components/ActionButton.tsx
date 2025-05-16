@@ -137,9 +137,9 @@ export function ActionButton({
       <Button
         application
         variant="text"
-        size="sm"
+        size="xs"
         color="primary"
-        className="block normal-case font-normal !p-2 -my-2.5 !-mx-2 tracking-normal underline-offset-1"
+        className="block !p-2 -my-2.5 !-mx-2 tracking-wide underline-offset-2 underline decoration-itemSecondaryDefault hover:no-underline"
         onClick={() => onClick?.(buttonProps.action, delegation)}
       >
         {buttonProps.title}

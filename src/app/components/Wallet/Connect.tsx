@@ -15,7 +15,7 @@ import { useHealthCheck } from "@/app/hooks/useHealthCheck";
 import { useAppState } from "@/app/state";
 import { useDelegationV2State } from "@/app/state/DelegationV2State";
 import { getNetworkConfigBBN } from "@/config/network/bbn";
-import { Button, Icon, Switch, WalletCapsule } from "@/ui";
+import { Box, Button, Icon, Switch, WalletCapsule } from "@/ui";
 
 import { Hash } from "../Hash/Hash";
 import { MenuContent } from "../Menu/MenuContent";
@@ -244,7 +244,13 @@ export const Connect: React.FC<ConnectProps> = ({
                 />
               </div>
             }
-            address={`${btcAddress.slice(0, 6)} | ${bech32Address.slice(0, 6)}`}
+            address={
+              <Box flex className="gap-1">
+                <span>{btcAddress.slice(0, 6)}</span>
+                <span className="text-itemPrimaryMute">|</span>
+                <span>{bech32Address.slice(0, 6)}</span>
+              </Box>
+            }
             disabled={false}
           />
         </button>

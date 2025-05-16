@@ -17,8 +17,8 @@ export function InfoAlert() {
       customizedContent={
         <>
           <div className="flex flex-col gap-1 grow">
-            <h5 className="text-[16px] font-semibold font-mono">Please note</h5>
-            <p className="text-callout font-mono text-pretty text-itemSecondaryDefault">
+            <h5 className="text-[14px] font-semibold font-sans">Please note</h5>
+            <p className="text-callout font-sans text-pretty">
               You can unbond and withdraw your stake anytime with an unbonding
               time of {blocksToDisplayTime(stakingInfo?.unbondingTime)}.
             </p>
@@ -28,7 +28,7 @@ export function InfoAlert() {
                 variant="text"
                 color="secondary"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-secondary-main/90 hover:text-secondary-main normal-case w-auto font-normal"
+                className="cursor-pointer font-sans text-secondary-main/90 hover:text-secondary-main normal-case w-auto font-normal underline hover:no-underline"
                 onClick={() => setShowMore(true)}
               >
                 Learn More

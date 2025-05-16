@@ -9,7 +9,7 @@ import { LoadingIcon } from "../LoadingIcon";
 export type WalletCapsuleProps = {
   state: "disconnected" | "connected" | "warning";
   balance?: string;
-  address?: string;
+  address?: string | ReactNode;
   connectCopy?: string;
   processingTxCopy?: string;
   customContent?: ReactNode;
