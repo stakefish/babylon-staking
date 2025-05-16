@@ -7,6 +7,7 @@ export const DashboardLabel = ({ className }: { className?: string }) => {
   return (
     <Button
       variant="text"
+      size="sm"
       {...getLinkProps("/")}
       href="/"
       className={cx("!no-underline", className)}

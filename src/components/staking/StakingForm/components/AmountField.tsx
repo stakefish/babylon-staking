@@ -1,6 +1,7 @@
-import { NumberField, Text } from "@babylonlabs-io/core-ui";
+import { NumberField } from "@babylonlabs-io/core-ui";
 
 import { getNetworkConfigBTC } from "@/config/network/btc";
+import { Label } from "@/ui";
 import { satoshiToBtc } from "@/utils/btc";
 
 interface AmountFieldProps {
@@ -13,12 +14,10 @@ const { coinSymbol } = getNetworkConfigBTC();
 export function AmountField({ min = 0, max = 0 }: AmountFieldProps) {
   const label = (
     <div className="flex flex-1 justify-between items-center">
-      <Text as="span" variant="body1">
-        Amount
-      </Text>
-      <Text as="span" variant="body2">
+      <Label>Amount</Label>
+      <Label>
         min/max: {satoshiToBtc(min)}/{satoshiToBtc(max)} {coinSymbol}
-      </Text>
+      </Label>
     </div>
   );
 

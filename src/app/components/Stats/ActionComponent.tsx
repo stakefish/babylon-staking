@@ -18,7 +18,8 @@ export function ActionComponent({
   return (
     <Button
       className={className}
-      variant="outline"
+      variant="text"
+      endIcon={{ iconKey: "arrowRight", size: 14 }}
       size="xs"
       application
       onClick={onAction}

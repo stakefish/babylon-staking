@@ -111,10 +111,10 @@ export function PersonalBalance() {
         }`,
         isLoading: rewardLoading,
       },
-      className: "flex-col",
+      className: "flex-col ",
       button: formattedRewardBalance ? (
         <ActionComponent
-          className="h-6"
+          className="h-5"
           title="Claim"
           onAction={showPreview}
           isDisabled={!rewardBalance || processing}

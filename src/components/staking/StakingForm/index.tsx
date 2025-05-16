@@ -129,9 +129,7 @@ export function DelegationForm({
   return (
     <AuthGuard fallback={<WalletNotConnected />}>
       <div className="relative flex flex-1 flex-col gap-6">
-        <h4 className="font-semibold text-h6 text-pretty font-mono">
-          {networkName} Staking
-        </h4>
+        <h4 className="font-bold text-h5 text-pretty font-sans">Stake now</h4>
 
         <InfoAlert />
 

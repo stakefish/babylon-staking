@@ -31,8 +31,8 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
             <div
               key={index}
               className={cx(
-                "flex justify-between border border-itemPrimaryMute gap-1.5 px-4",
-                index !== 0 ? "-mt-px pt-[9px] pb-[14px] -mr-px" : "py-3.5",
+                "flex justify-between border border-itemPrimaryMute px-4",
+                index !== 0 ? "-mt-px py-[9px] -mr-px  gap-1" : "py-2 gap-2",
                 s.className,
               )}
             >
@@ -40,7 +40,10 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
                 <span>{s.title.text}</span>
                 {s.title.tooltip && (
                   <span className="h-[20px]">
-                    <Tooltip content={s.title.tooltip}>
+                    <Tooltip
+                      content={s.title.tooltip}
+                      contentProps={{ className: "max-w-[320px]" }}
+                    >
                       <Button
                         as="span"
                         icon={{
@@ -56,7 +59,7 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
               </div>
               <div
                 className={cx(
-                  "font-semibold",
+                  "font-semibold mb-1",
                   s.value.isLoading ? "flex-1" : "flex gap-4 items-center",
                   index === 0 ? "text-body1 max-h-[24px]" : "text-callout",
                 )}
@@ -70,7 +73,7 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
                     </div>
                   )
                 ) : (
-                  <div className="flex gap-4 items-center -my-1">
+                  <div className="flex gap-4 items-center justify-between w-full">
                     <span>{s.value.text}</span>
                     {s.button}
                   </div>
