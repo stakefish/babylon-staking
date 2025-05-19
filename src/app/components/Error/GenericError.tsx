@@ -1,13 +1,11 @@
 "use client";
 
-import { Button, Heading, Text } from "@babylonlabs-io/core-ui";
-import Image from "next/image";
+import { Button } from "@babylonlabs-io/core-ui";
 
 import BitcoinBlock from "@/app/assets/bitcoin-block.svg";
 import { Container } from "@/app/components/Container/Container";
-
-import { Footer } from "../Footer/Footer";
-import { SimplifiedHeader } from "../Header/SimplifiedHeader";
+import { Footer } from "@/app/componentsStakefish/Footer";
+import { Header } from "@/app/componentsStakefish/SimpleHeader";
 
 interface Props {
   title?: string;
@@ -24,32 +22,27 @@ export default function GenericError({
 }: Props) {
   return (
     <div className="h-full min-h-svh w-full flex flex-col justify-between">
-      <SimplifiedHeader isMinimal />
+      <Header />
 
-      <Container className="py-12 px-6">
-        <div className="flex flex-col items-center justify-center gap-8">
-          <Image
-            src={image}
-            alt="Generic Error"
-            className="w-full h-auto max-w-[120px]"
-          />
-          <Heading variant="h5" className="text-accent-primary">
-            {title}
-          </Heading>
-          <div className="w-full max-w-[650px]">
-            <Text variant="body1" className="text-center text-accent-primary">
+      <section className="mt-[47px] relative overflow-hidden px-4 py-8 flounder:px-8 flounder:py-12 h-[calc(100vh-818px)] min-h-96 flounder:h-[calc(100vh-458px)]">
+        <Container className=" mx-auto flex text-center flounder:max-w-3xl flounder:px-11 h-full items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-4">
+            <h1 className="leading-none text-hero">{title}</h1>
+            <p className="font-sans font-medium text-withLink text-body1 text-itemSecondaryDefault">
               {message}
-            </Text>
+            </p>
+            <div className="mt-6">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => history.go()}
+              >
+                Back to homepage
+              </Button>
+            </div>
           </div>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => history.go()}
-          >
-            Back to homepage
-          </Button>
-        </div>
-      </Container>
+        </Container>
+      </section>
 
       <Footer />
     </div>
