@@ -25,15 +25,14 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
           {label}
         </div>
       )}
-      <div className="grid grid-cols-1 gap-0 overflow-hidden stats flounder:grid-cols-2">
+      <div className="grid grid-cols-1 gap-0 overflow-hidden stats flounder:grid-cols-2 whale:grid-cols-3">
         {sections.map((s, index) => {
           return (
             <div
               key={index}
               className={cx(
-                "flex justify-between border border-itemPrimaryMute gap-1.5 px-4",
-                index !== 0 ? "-mt-px py-[9px]" : "py-3.5",
-                index % 2 === 1 ? "-mr-px" : "",
+                "flex justify-between border border-itemPrimaryMute px-4",
+                index !== 0 ? "-mt-px py-[9px] -mr-px  gap-1" : "py-2 gap-2",
                 s.className,
               )}
             >
@@ -41,7 +40,10 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
                 <span>{s.title.text}</span>
                 {s.title.tooltip && (
                   <span className="h-[20px]">
-                    <Tooltip content={s.title.tooltip}>
+                    <Tooltip
+                      content={s.title.tooltip}
+                      contentProps={{ className: "max-w-[320px]" }}
+                    >
                       <Button
                         as="span"
                         icon={{
@@ -57,7 +59,7 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
               </div>
               <div
                 className={cx(
-                  "font-semibold",
+                  "font-semibold mb-1",
                   s.value.isLoading ? "flex-1" : "flex gap-4 items-center",
                   index === 0 ? "text-body1 max-h-[24px]" : "text-callout",
                 )}
@@ -66,12 +68,12 @@ export const DataWidget = ({ sections, label }: StatsSectionsProps) => {
                   s.value.loadingValue ? (
                     s.value.loadingValue
                   ) : (
-                    <div className={cx(index !== 0 && "text-right", "h-full")}>
+                    <div className="h-full">
                       <Skeleton width="30%" height="100%" />
                     </div>
                   )
                 ) : (
-                  <div className="flex gap-4 items-center -my-1">
+                  <div className="flex gap-4 items-center justify-between w-full">
                     <span>{s.value.text}</span>
                     {s.button}
                   </div>

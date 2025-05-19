@@ -66,7 +66,7 @@ const columns: TableColumn<DelegationWithFP, TableParams>[] = [
   },
   {
     field: "actions",
-    headerName: "Action",
+    headerName: "Actions",
     width: "minmax(max-content, 0.5fr)",
     renderCell: (row, _, { handleActionClick, validations }) => {
       const { valid, error } = validations[row.stakingTxHashHex];

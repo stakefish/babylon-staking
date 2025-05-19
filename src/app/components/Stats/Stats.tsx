@@ -50,7 +50,7 @@ export const Stats = memo(() => {
           : NA_SYMBOL,
         isLoading: isSystemStatsLoading,
       },
-      className: "col-span-1 flex-col flounder:col-span-2",
+      className: "col-span-1 flounder:col-span-2 whale:col-span-3 flex-col",
     },
     {
       title: {
@@ -64,7 +64,7 @@ export const Stats = memo(() => {
           : `0.00000000 ${coinSymbol}`,
         isLoading: isSystemStatsLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: { text: "Max/Min Staking Period" },
@@ -72,11 +72,11 @@ export const Stats = memo(() => {
         text: `${stakingInfo?.maxStakingTimeBlocks.toLocaleString()}/${stakingInfo?.minStakingTimeBlocks.toLocaleString()} ${coinSymbol} Blocks`,
         isLoading: isStakingInfoLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: {
-        text: `${coinSymbol} Staking APY`,
+        text: `${coinSymbol} Staking APR`,
         tooltip:
           "Annual Percentage Reward (APR) is a dynamic estimate of the annualized staking reward rate based on current network conditions, and it refers to staking rewards rather than traditional lending interest. Rewards are distributed in BABY tokens but shown as a Bitcoin-equivalent rate relative to the Bitcoin initially staked. APR is calculated using U.S. dollar values for Bitcoin and BABY from independent, reputable sources. The APR shown is an approximate figure that can fluctuate, and the displayed value may not always be completely accurate. Actual rewards are not guaranteed and may vary over time. Staking carries exposure to slashing and other risks",
       },
@@ -86,7 +86,7 @@ export const Stats = memo(() => {
           : NA_SYMBOL,
         isLoading: isSystemStatsLoading,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col",
     },
     {
       title: { text: "" },
@@ -94,7 +94,7 @@ export const Stats = memo(() => {
         text: "",
         isLoading: false,
       },
-      className: "flex-col whaleShark:flex-row",
+      className: "flex-col whale:hidden hidden flounder:block",
     },
   ];
 
