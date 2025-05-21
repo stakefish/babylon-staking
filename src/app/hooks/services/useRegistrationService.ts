@@ -13,6 +13,8 @@ import { DelegationV2StakingState as DelegationState } from "@/app/types/delegat
 import { ClientError, ERROR_CODES } from "@/errors";
 import { useLogger } from "@/hooks/useLogger";
 import { retry } from "@/utils";
+import { satoshiToBtc } from "@/utils/btc";
+import { Mixpanel } from "@/utils/mixpanel";
 
 import { useBbnTransaction } from "../client/rpc/mutation/useBbnTransaction";
 
@@ -129,6 +131,11 @@ export function useRegistrationService() {
         // Refetch both v1 and v2 delegations to reflect the latest state
         refetchV1Delegations();
         refetchV2Delegations();
+
+        Mixpanel.track("babylon_registration", {
+          amount: satoshiToBtc(selectedDelegation.stakingValueSat).toString(),
+          term: selectedDelegation.stakingTx.timelock,
+        });
       }
       setProcessing(false);
     } catch (error: any) {

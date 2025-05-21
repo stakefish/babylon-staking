@@ -13,7 +13,9 @@ import { FinalityProvider } from "@/app/types/finalityProviders";
 import { BbnStakingParamsVersion } from "@/app/types/networkInfo";
 import { ClientError, ERROR_CODES } from "@/errors";
 import { useLogger } from "@/hooks/useLogger";
+import { satoshiToBtc } from "@/utils/btc";
 import { validateDelegation } from "@/utils/delegations";
+import { Mixpanel } from "@/utils/mixpanel";
 import { getBbnParamByVersion } from "@/utils/params";
 
 import { useTransactionService } from "./useTransactionService";
@@ -133,6 +135,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_PENDING_BTC_CONFIRMATION,
         );
+        Mixpanel.track("babylon_stake", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
 
       [ACTIONS.UNBOND]: async ({
@@ -169,6 +175,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_UNBONDING_SUBMITTED,
         );
+        Mixpanel.track("babylon_unbond", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
 
       [ACTIONS.WITHDRAW_ON_EARLY_UNBONDING]: async ({
@@ -187,6 +197,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_EARLY_UNBONDING_WITHDRAWAL_SUBMITTED,
         );
+        Mixpanel.track("babylon_withdraw_on_early_unbonding", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
 
       [ACTIONS.WITHDRAW_ON_EARLY_UNBONDING_SLASHING]: async ({
@@ -216,6 +230,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_EARLY_UNBONDING_SLASHING_WITHDRAWAL_SUBMITTED,
         );
+        Mixpanel.track("babylon_withdraw_on_early_unbonding_slashing", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
 
       [ACTIONS.WITHDRAW_ON_TIMELOCK]: async ({
@@ -234,6 +252,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_TIMELOCK_WITHDRAWAL_SUBMITTED,
         );
+        Mixpanel.track("babylon_withdraw_on_timelock", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
 
       [ACTIONS.WITHDRAW_ON_TIMELOCK_SLASHING]: async ({
@@ -263,6 +285,10 @@ export function useDelegationService() {
           stakingTxHashHex,
           State.INTERMEDIATE_TIMELOCK_SLASHING_WITHDRAWAL_SUBMITTED,
         );
+        Mixpanel.track("babylon_withdraw_on_timelock_slashing", {
+          amount: satoshiToBtc(stakingInput.stakingAmountSat).toString(),
+          term: stakingInput.stakingTimelock,
+        });
       },
     }),
     [

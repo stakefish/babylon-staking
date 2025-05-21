@@ -5,6 +5,7 @@ import { ONE_SECOND } from "@/app/constants";
 import { useError } from "@/app/context/Error/ErrorProvider";
 import { useRewardsState } from "@/app/state/RewardState";
 import { retry } from "@/utils";
+import { Mixpanel } from "@/utils/mixpanel";
 import { BBN_REGISTRY_TYPE_URLS } from "@/utils/wallet/bbnRegistry";
 
 import { useBbnTransaction } from "../client/rpc/mutation/useBbnTransaction";
@@ -68,7 +69,7 @@ export const useRewardsService = () => {
       if (result?.txHash) {
         setTransactionHash(result.txHash);
       }
-
+      Mixpanel.track("babylon_claim_rewards");
       await refetchRewardBalance();
       const initialBalance = balanceQuery.data || 0;
       await retry(

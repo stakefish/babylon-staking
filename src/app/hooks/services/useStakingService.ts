@@ -17,7 +17,8 @@ import {
   DelegationV2,
 } from "@/app/types/delegationsV2";
 import { retry } from "@/utils";
-import { btcToSatoshi } from "@/utils/btc";
+import { btcToSatoshi, satoshiToBtc } from "@/utils/btc";
+import { Mixpanel } from "@/utils/mixpanel";
 
 import { useBbnTransaction } from "../client/rpc/mutation/useBbnTransaction";
 
@@ -127,6 +128,9 @@ export function useStakingService() {
         refetchDelegations();
         goToStep(StakingStep.VERIFIED);
         setProcessing(false);
+        Mixpanel.track("babylon_create_EOI", {
+          amount: satoshiToBtc(amount).toString(),
+        });
       } catch (error: any) {
         handleError({
           error,
@@ -183,7 +187,10 @@ export function useStakingService() {
           stakingTxHashHex,
           DelegationState.INTERMEDIATE_PENDING_BTC_CONFIRMATION,
         );
-
+        Mixpanel.track("babylon_stake", {
+          amount: satoshiToBtc(stakingAmount).toString(),
+          term: stakingTimelock,
+        });
         reset();
         goToStep(StakingStep.FEEDBACK_SUCCESS);
       } catch (error: any) {
