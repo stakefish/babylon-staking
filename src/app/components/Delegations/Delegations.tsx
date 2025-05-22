@@ -25,8 +25,10 @@ import {
 import { ClientError, ERROR_CODES } from "@/errors";
 import { useLogger } from "@/hooks/useLogger";
 import { Box } from "@/ui";
+import { satoshiToBtc } from "@/utils/btc";
 import { getIntermediateDelegationsLocalStorageKey } from "@/utils/local_storage/getIntermediateDelegationsLocalStorageKey";
 import { toLocalStorageIntermediateDelegation } from "@/utils/local_storage/toLocalStorageIntermediateDelegation";
+import { Mixpanel } from "@/utils/mixpanel";
 
 import { UnbondModal } from "../Modals/UnbondModal";
 import { VerificationModal } from "../Modals/VerificationModal";
@@ -199,6 +201,9 @@ export const Delegations = ({}) => {
         selectedDelegation,
         DelegationState.INTERMEDIATE_UNBONDING,
       );
+      Mixpanel.track("babylon_unbond", {
+        amount: satoshiToBtc(selectedDelegation.stakingValueSat).toString(),
+      });
     } catch (error: Error | any) {
       handleError({
         error,
@@ -263,6 +268,9 @@ export const Delegations = ({}) => {
         selectedDelegation,
         DelegationState.INTERMEDIATE_WITHDRAWAL,
       );
+      Mixpanel.track("babylon_withdraw", {
+        amount: satoshiToBtc(selectedDelegation.stakingValueSat).toString(),
+      });
     } catch (error: Error | any) {
       logger.error(error, {
         tags: {
