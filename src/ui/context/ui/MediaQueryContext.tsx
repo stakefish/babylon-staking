@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { useSafeMediaQuery, utils } from "@/ui";
-import type { MediaQueries } from "@/ui/types";
+import { MediaQueries } from "@/ui/common/types";
 
 interface MediaQueryContextProps {
   up: Record<MediaQueries.Breakpoint, boolean | null> | null;

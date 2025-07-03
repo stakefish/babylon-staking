@@ -1,7 +1,8 @@
-import type { HTMLAttributes } from "react";
+import { useSafeMediaQuery } from "@/ui";
+import { breakpoints } from "@/ui/theme/breakpoints";
+import { cx } from "class-variance-authority";
 
-import useSafeMediaQuery from "../../hooks/useSafeMediaQuery";
-import { breakpoints, cx } from "../../utils";
+import type { HTMLAttributes } from "react";
 
 export interface PromptBoxProps extends HTMLAttributes<HTMLDivElement> {
   wrapperClassName?: string;
