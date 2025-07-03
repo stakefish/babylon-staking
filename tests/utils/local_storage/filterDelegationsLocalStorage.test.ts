@@ -1,14 +1,13 @@
-import { HttpStatusCode } from "@/app/api/httpStatusCodes";
-import { ServerError } from "@/app/context/Error/errors";
-import { Delegation } from "@/app/types/delegations";
-import { filterDelegationsLocalStorage } from "@/utils/local_storage/filterDelegationsLocalStorage";
-import { getTxInfo } from "@/utils/mempool_api";
+import { ClientError, ERROR_CODES } from "@/ui/errors";
+import { Delegation } from "@/ui/types/delegations";
+import { filterDelegationsLocalStorage } from "@/ui/utils/local_storage/filterDelegationsLocalStorage";
+import { getTxInfo } from "@/ui/utils/mempool_api";
 
 import { generateMockDelegation } from "../../helper/generateMockDelegation";
 
 // Mock the getTxInfo function
-jest.mock("@/utils/mempool_api");
-jest.mock("@/app/constants", () => ({
+jest.mock("@/ui/utils/mempool_api");
+jest.mock("@/ui/constants", () => ({
   MEMPOOL_API: "https://mempool.space",
 }));
 
@@ -40,13 +39,12 @@ describe("utils/local_storage/filterDelegationsLocalStorage", () => {
   });
 
   it("should return valid delegations not present in the API and not exceeding the max duration", async () => {
-    (getTxInfo as jest.Mock).mockRejectedValue(
-      new ServerError({
-        message: "Transaction not found in the mempool",
-        status: HttpStatusCode.NotFound,
-        endpoint: "mempool/tx/info",
-      }),
-    );
+    (getTxInfo as jest.Mock).mockImplementation(async () => {
+      throw new ClientError(
+        ERROR_CODES.TRANSACTION_VERIFICATION_ERROR,
+        "Transaction not found in the mempool",
+      );
+    });
 
     const result = await filterDelegationsLocalStorage(
       mockDelegationsLocalStorage,
@@ -58,13 +56,12 @@ describe("utils/local_storage/filterDelegationsLocalStorage", () => {
   });
 
   it("should remove delegations that exceed max duration and are not in the mempool", async () => {
-    (getTxInfo as jest.Mock).mockRejectedValue(
-      new ServerError({
-        message: "Transaction not found in the mempool",
-        status: HttpStatusCode.NotFound,
-        endpoint: "mempool/tx/info",
-      }),
-    );
+    (getTxInfo as jest.Mock).mockImplementation(async () => {
+      throw new ClientError(
+        ERROR_CODES.TRANSACTION_VERIFICATION_ERROR,
+        "Transaction not found in the mempool",
+      );
+    });
 
     const result = await filterDelegationsLocalStorage(
       mockDelegationsLocalStorage,
@@ -128,6 +125,10 @@ describe("utils/local_storage/filterDelegationsLocalStorage", () => {
   });
 
   it("should handle local storage delegations exactly on the max duration boundary", async () => {
+    // Freeze time so that Date.now() returns a fixed value during the whole test run.
+    const fixedTime = new Date("2023-01-01T00:00:00Z").getTime();
+    jest.useFakeTimers().setSystemTime(fixedTime);
+
     const boundaryDelegation: Delegation = generateMockDelegation(
       "hash10",
       "staker10",
@@ -137,22 +138,25 @@ describe("utils/local_storage/filterDelegationsLocalStorage", () => {
     );
 
     const delegationsLocalStorage = [boundaryDelegation];
+
     const result = await filterDelegationsLocalStorage(
       delegationsLocalStorage,
       mockDelegationsAPI,
     );
 
     expect(result).toEqual([boundaryDelegation]);
+
+    // Restore real timers to avoid side-effects on other tests.
+    jest.useRealTimers();
   });
 
   it("should handle no API data but local storage items are present", async () => {
-    (getTxInfo as jest.Mock).mockRejectedValue(
-      new ServerError({
-        message: "Transaction not found in the mempool",
-        status: HttpStatusCode.NotFound,
-        endpoint: "mempool/tx/info",
-      }),
-    );
+    (getTxInfo as jest.Mock).mockImplementation(async () => {
+      throw new ClientError(
+        ERROR_CODES.TRANSACTION_VERIFICATION_ERROR,
+        "Transaction not found in the mempool",
+      );
+    });
 
     const result = await filterDelegationsLocalStorage(
       mockDelegationsLocalStorage,

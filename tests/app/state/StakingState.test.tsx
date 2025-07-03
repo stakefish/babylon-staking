@@ -3,38 +3,42 @@ import { PropsWithChildren } from "react";
 
 // Mock the dependencies, but keep their APIs close to real ones
 const mockUseAppState = jest.fn();
-jest.mock("@/app/state", () => ({
+jest.mock("@/ui/state", () => ({
   useAppState: () => mockUseAppState(),
 }));
 
-jest.mock("@/config", () => ({
+jest.mock("@/ui/config", () => ({
   IS_FIXED_TERM_FIELD: false,
   getDisabledWallets: () => [],
 }));
 
 const mockUseHealthCheck = jest.fn();
-jest.mock("@/app/hooks/useHealthCheck", () => ({
+jest.mock("@/ui/hooks/useHealthCheck", () => ({
   useHealthCheck: () => mockUseHealthCheck(),
 }));
 
 const mockUseNetworkFees = jest.fn();
-jest.mock("@/app/hooks/client/api/useNetworkFees", () => ({
+jest.mock("@/ui/hooks/client/api/useNetworkFees", () => ({
   useNetworkFees: () => mockUseNetworkFees(),
 }));
 
 const mockUseBalanceState = jest.fn();
-jest.mock("@/app/state/BalanceState", () => ({
+jest.mock("@/ui/state/BalanceState", () => ({
   useBalanceState: () => mockUseBalanceState(),
 }));
 
 const mockUseBTCWallet = jest.fn();
-jest.mock("@/app/context/wallet/BTCWalletProvider", () => ({
+jest.mock("@/ui/context/wallet/BTCWalletProvider", () => ({
   useBTCWallet: () => mockUseBTCWallet(),
 }));
 
 const mockUseCosmosWallet = jest.fn();
-jest.mock("@/app/context/wallet/CosmosWalletProvider", () => ({
+jest.mock("@/ui/context/wallet/CosmosWalletProvider", () => ({
   useCosmosWallet: () => mockUseCosmosWallet(),
+}));
+
+jest.mock("@uidotdev/usehooks", () => ({
+  useDebounce: jest.fn((value) => value),
 }));
 
 // Mock useLocalStorage
@@ -57,14 +61,14 @@ import {
   StakingState,
   StakingStep,
   useStakingState,
-} from "@/app/state/StakingState";
+} from "@/ui/state/StakingState";
 import {
   DelegationV2,
   DelegationV2StakingState,
-} from "@/app/types/delegationsV2";
+} from "@/ui/types/delegationsV2";
 
 // Mock getFeeRateFromMempool
-jest.mock("@/utils/getFeeRateFromMempool", () => ({
+jest.mock("@/ui/utils/getFeeRateFromMempool", () => ({
   getFeeRateFromMempool: jest.fn().mockReturnValue({
     minFeeRate: 1,
     defaultFeeRate: 5,
@@ -290,7 +294,7 @@ describe("StakingState", () => {
     const testErrorMessage = "Test API error message";
     mockUseHealthCheck.mockReturnValue({
       ...mockUseHealthCheck(),
-      apiMessage: testErrorMessage,
+      error: { message: testErrorMessage },
     });
 
     const { result } = renderHook(() => useStakingState(), {
@@ -374,7 +378,7 @@ describe("StakingState", () => {
     });
 
     const testFormData = {
-      finalityProvider: "test-provider",
+      finalityProviders: ["test-provider"],
       term: 5000,
       amount: 100000,
       feeRate: 5,
@@ -452,7 +456,7 @@ describe("StakingState", () => {
     act(() => {
       result.current.goToStep(StakingStep.PREVIEW);
       result.current.setFormData({
-        finalityProvider: "test-provider",
+        finalityProviders: ["test-provider"],
         term: 5000,
         amount: 100000,
         feeRate: 5,
@@ -551,7 +555,7 @@ describe("StakingState", () => {
 
       const initialFormData = result.current.formData;
       const newFormData = {
-        finalityProvider: "test-provider",
+        finalityProviders: ["test-provider"],
         amount: 100000,
         term: 5000,
         feeRate: 5,
@@ -630,7 +634,7 @@ describe("StakingState", () => {
 
       // Set up a non-default state
       const newFormData = {
-        finalityProvider: "test-provider",
+        finalityProviders: ["test-provider"],
         amount: 100000,
         term: 5000,
         feeRate: 5,
@@ -693,7 +697,7 @@ describe("StakingState", () => {
 
       // Step 1: Fill the form
       const stakingFormData = {
-        finalityProvider: "test-provider",
+        finalityProviders: ["test-provider"],
         amount: 100000,
         term: 5000,
         feeRate: 5,
@@ -752,7 +756,7 @@ describe("StakingState", () => {
         stakingTxHashHex: "mock-hash",
         stakingTxHex: "mock-tx-hex",
         paramsVersion: 1,
-        finalityProviderBtcPksHex: [stakingFormData.finalityProvider],
+        finalityProviderBtcPksHex: stakingFormData.finalityProviders,
         stakerBtcPkHex: "mock-staker-pk",
         stakingTimelock: stakingFormData.term,
         bbnInceptionHeight: 100,
@@ -803,7 +807,7 @@ describe("StakingState", () => {
 
       // Step 1: Fill the form
       const stakingFormData = {
-        finalityProvider: "test-provider",
+        finalityProviders: ["test-provider"],
         amount: 100000,
         term: 5000,
         feeRate: 5,

@@ -1,18 +1,17 @@
-import { SigningStep } from "@babylonlabs-io/btc-staking-ts";
 import { act, renderHook } from "@testing-library/react";
 import { Transaction } from "bitcoinjs-lib";
 
-import { useBTCWallet } from "@/app/context/wallet/BTCWalletProvider";
-import { useCosmosWallet } from "@/app/context/wallet/CosmosWalletProvider";
-import { useNetworkFees } from "@/app/hooks/client/api/useNetworkFees";
-import { useBbnQuery } from "@/app/hooks/client/rpc/queries/useBbnQuery";
-import { useStakingManagerService } from "@/app/hooks/services/useStakingManagerService";
+import { useBTCWallet } from "@/ui/context/wallet/BTCWalletProvider";
+import { useCosmosWallet } from "@/ui/context/wallet/CosmosWalletProvider";
+import { useNetworkFees } from "@/ui/hooks/client/api/useNetworkFees";
+import { useBbnQuery } from "@/ui/hooks/client/rpc/queries/useBbnQuery";
+import { useStakingManagerService } from "@/ui/hooks/services/useStakingManagerService";
 import {
   BtcStakingInputs,
   useTransactionService,
-} from "@/app/hooks/services/useTransactionService";
-import { useAppState } from "@/app/state";
-import * as mempoolAPI from "@/utils/mempool_api";
+} from "@/ui/hooks/services/useTransactionService";
+import { useAppState } from "@/ui/state";
+import * as mempoolAPI from "@/ui/utils/mempool_api";
 
 import { testingNetworks } from "../../../helper";
 
@@ -31,31 +30,31 @@ jest.mock("@babylonlabs-io/btc-staking-ts", () => ({
 }));
 
 // Mock all dependencies at the module level, so we avoid importing the actual files
-jest.mock("@/app/hooks/services/useStakingManagerService", () => ({
+jest.mock("@/ui/hooks/services/useStakingManagerService", () => ({
   useStakingManagerService: jest.fn(),
 }));
 
-jest.mock("@/app/hooks/client/api/useNetworkFees", () => ({
+jest.mock("@/ui/hooks/client/api/useNetworkFees", () => ({
   useNetworkFees: jest.fn(),
 }));
 
-jest.mock("@/app/hooks/client/rpc/queries/useBbnQuery", () => ({
+jest.mock("@/ui/hooks/client/rpc/queries/useBbnQuery", () => ({
   useBbnQuery: jest.fn(),
 }));
 
-jest.mock("@/app/context/wallet/BTCWalletProvider", () => ({
+jest.mock("@/ui/context/wallet/BTCWalletProvider", () => ({
   useBTCWallet: jest.fn(),
 }));
 
-jest.mock("@/app/context/wallet/CosmosWalletProvider", () => ({
+jest.mock("@/ui/context/wallet/CosmosWalletProvider", () => ({
   useCosmosWallet: jest.fn(),
 }));
 
-jest.mock("@/app/state", () => ({
+jest.mock("@/ui/state", () => ({
   useAppState: jest.fn(),
 }));
 
-jest.mock("@/utils/mempool_api", () => ({
+jest.mock("@/ui/utils/mempool_api", () => ({
   getTxMerkleProof: jest.fn(),
   getTxInfo: jest.fn(),
 }));
@@ -95,7 +94,7 @@ describe("useTransactionService", () => {
 
   // Mock staking inputs
   const mockStakingInputs: BtcStakingInputs = {
-    finalityProviderPkNoCoordHex: mockCovenantPair.noCoordPublicKey,
+    finalityProviderPksNoCoordHex: [mockCovenantPair.noCoordPublicKey],
     stakingAmountSat: 1000000,
     stakingTimelock: mockStakingTerm,
   };
@@ -555,28 +554,6 @@ describe("useTransactionService", () => {
 
       // Verify transaction was pushed
       expect(mockPushTx).toHaveBeenCalledWith("mock-tx-hex");
-    });
-  });
-
-  describe("subscribeToSigningSteps", () => {
-    it("should subscribe to signing steps and return cleanup function", () => {
-      const { result } = renderHook(() => useTransactionService());
-      const mockCallback = jest.fn();
-
-      // Subscribe to signing steps
-      const unsubscribe = result.current.subscribeToSigningSteps(mockCallback);
-
-      // Trigger a signing event with the mocked enum value
-      mockEventCallback(SigningStep.STAKING_SLASHING);
-
-      // Check if the callback was called with the right step
-      expect(mockCallback).toHaveBeenCalledWith(SigningStep.STAKING_SLASHING);
-
-      // Call the cleanup function
-      unsubscribe();
-
-      // Verify the off function was called with the same callback
-      expect(useStakingManagerService().off).toHaveBeenCalledWith(mockCallback);
     });
   });
 

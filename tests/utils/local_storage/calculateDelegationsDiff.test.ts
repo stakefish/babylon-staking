@@ -1,10 +1,10 @@
-import { Delegation } from "@/app/types/delegations";
-import { calculateDelegationsDiff } from "@/utils/local_storage/calculateDelegationsDiff";
-import { filterDelegationsLocalStorage } from "@/utils/local_storage/filterDelegationsLocalStorage";
+import { Delegation } from "@/ui/types/delegations";
+import { calculateDelegationsDiff } from "@/ui/utils/local_storage/calculateDelegationsDiff";
+import { filterDelegationsLocalStorage } from "@/ui/utils/local_storage/filterDelegationsLocalStorage";
 
 // Mock the filterDelegationsLocalStorage function
-jest.mock("@/utils/local_storage/filterDelegationsLocalStorage");
-jest.mock("@/app/constants", () => ({
+jest.mock("@/ui/utils/local_storage/filterDelegationsLocalStorage");
+jest.mock("@/ui/constants", () => ({
   MEMPOOL_API: "https://mempool.space",
 }));
 

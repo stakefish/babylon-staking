@@ -1,8 +1,8 @@
 // Mock SVG imports
-jest.mock("@/app/assets/warning-triangle.svg", () => "SVG-mock");
+jest.mock("@/ui/assets/warning-triangle.svg", () => "SVG-mock");
 
 // Mock the Error Provider to avoid the SVG import issue
-jest.mock("@/app/context/Error/ErrorProvider", () => ({
+jest.mock("@/ui/context/Error/ErrorProvider", () => ({
   useError: jest.fn(),
 }));
 
@@ -11,35 +11,35 @@ jest.mock("@uidotdev/usehooks", () => ({
   useDebounce: jest.fn((value) => value),
 }));
 
-import { SigningStep } from "@babylonlabs-io/btc-staking-ts";
+import { RegistrationStep } from "@babylonlabs-io/btc-staking-ts";
 import { act, renderHook } from "@testing-library/react";
 
-import { getDelegationV2 } from "@/app/api/getDelegationsV2";
-import { ONE_SECOND } from "@/app/constants";
-import { useError } from "@/app/context/Error/ErrorProvider";
-import { useBbnTransaction } from "@/app/hooks/client/rpc/mutation/useBbnTransaction";
-import { useRegistrationService } from "@/app/hooks/services/useRegistrationService";
-import { useTransactionService } from "@/app/hooks/services/useTransactionService";
-import { useDelegationState } from "@/app/state/DelegationState";
-import { useDelegationV2State } from "@/app/state/DelegationV2State";
-import { Delegation } from "@/app/types/delegations";
+import { getDelegationV2 } from "@/ui/api/getDelegationsV2";
+import { ONE_SECOND } from "@/ui/constants";
+import { useError } from "@/ui/context/Error/ErrorProvider";
+import { ClientError } from "@/ui/errors";
+import { useBbnTransaction } from "@/ui/hooks/client/rpc/mutation/useBbnTransaction";
+import { useRegistrationService } from "@/ui/hooks/services/useRegistrationService";
+import { useTransactionService } from "@/ui/hooks/services/useTransactionService";
+import { useDelegationState } from "@/ui/state/DelegationState";
+import { useDelegationV2State } from "@/ui/state/DelegationV2State";
+import { Delegation } from "@/ui/types/delegations";
 import {
   DelegationV2,
   DelegationV2StakingState,
-} from "@/app/types/delegationsV2";
-import { ClientError } from "@/errors";
-import { retry } from "@/utils";
+} from "@/ui/types/delegationsV2";
+import { retry } from "@/ui/utils";
 
 // Mock all dependencies
-jest.mock("@/app/api/getDelegationsV2");
-jest.mock("@/app/constants", () => ({
+jest.mock("@/ui/api/getDelegationsV2");
+jest.mock("@/ui/constants", () => ({
   ONE_SECOND: 1000,
 }));
-jest.mock("@/app/hooks/client/rpc/mutation/useBbnTransaction");
-jest.mock("@/app/hooks/services/useTransactionService");
-jest.mock("@/app/state/DelegationState");
-jest.mock("@/app/state/DelegationV2State");
-jest.mock("@/utils", () => ({
+jest.mock("@/ui/hooks/client/rpc/mutation/useBbnTransaction");
+jest.mock("@/ui/hooks/services/useTransactionService");
+jest.mock("@/ui/state/DelegationState");
+jest.mock("@/ui/state/DelegationV2State");
+jest.mock("@/ui/utils", () => ({
   retry: jest.fn(),
 }));
 
@@ -153,7 +153,7 @@ describe("useRegistrationService", () => {
     (getDelegationV2 as jest.Mock).mockResolvedValue(mockDelegationV2);
 
     // Mock retry utility
-    (retry as jest.Mock).mockImplementation((fn, predicate, interval) => {
+    (retry as jest.Mock).mockImplementation((fn) => {
       return fn();
     });
 
@@ -167,7 +167,7 @@ describe("useRegistrationService", () => {
   describe("subscribeToSigningSteps", () => {
     it("should subscribe to signing steps and update registration step", () => {
       // Initialize callback to avoid linter error
-      let callback = jest.fn() as unknown as (step: SigningStep) => void;
+      let callback = jest.fn() as unknown as (step: RegistrationStep) => void;
 
       // Mock the implementation of subscribeToSigningSteps
       mockSubscribeToSigningSteps.mockImplementation((cb) => {
@@ -182,24 +182,28 @@ describe("useRegistrationService", () => {
       expect(mockSubscribeToSigningSteps).toHaveBeenCalled();
 
       // Simulate different signing step events
-      callback(SigningStep.STAKING_SLASHING);
+      callback("staking-slashing");
       expect(mockSetRegistrationStep).toHaveBeenCalledWith(
         "registration-staking-slashing",
+        undefined,
       );
 
-      callback(SigningStep.UNBONDING_SLASHING);
+      callback("unbonding-slashing");
       expect(mockSetRegistrationStep).toHaveBeenCalledWith(
         "registration-unbonding-slashing",
+        undefined,
       );
 
-      callback(SigningStep.PROOF_OF_POSSESSION);
+      callback("proof-of-possession");
       expect(mockSetRegistrationStep).toHaveBeenCalledWith(
         "registration-proof-of-possession",
+        undefined,
       );
 
-      callback(SigningStep.CREATE_BTC_DELEGATION_MSG);
+      callback("create-btc-delegation-msg");
       expect(mockSetRegistrationStep).toHaveBeenCalledWith(
         "registration-sign-bbn",
+        undefined,
       );
     });
   });
@@ -250,7 +254,7 @@ describe("useRegistrationService", () => {
         mockStakingTxHex,
         mockStartHeight,
         {
-          finalityProviderPkNoCoordHex: mockFinalityProviderPkHex,
+          finalityProviderPksNoCoordHex: [mockFinalityProviderPkHex],
           stakingAmountSat: mockStakingValueSat,
           stakingTimelock: mockTimelock,
         },
@@ -308,7 +312,7 @@ describe("useRegistrationService", () => {
 
     it("should handle successful validation but wait for active state", async () => {
       // Mock retry to simulate waiting for active state
-      (retry as jest.Mock).mockImplementation((fn, predicate, interval) => {
+      (retry as jest.Mock).mockImplementation((_, predicate) => {
         // First call returns pending, second call returns active
         const pendingDelegation = {
           ...mockDelegationV2,

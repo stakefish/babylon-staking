@@ -1,4 +1,6 @@
-import { Page } from "@playwright/test";
+import { incentivequery } from "@babylonlabs-io/babylon-proto-ts";
+import type { Page } from "@playwright/test";
+import { QueryBalanceResponse } from "cosmjs-types/cosmos/bank/v1beta1/query.js";
 
 import mockData from "./constants";
 
@@ -6,11 +8,6 @@ export const injectBBNQueries = async (
   page: Page,
   rewardAmount: string = mockData.bbnQueries.rewardAmount,
 ) => {
-  const { incentivequery } = require("@babylonlabs-io/babylon-proto-ts");
-  const {
-    QueryBalanceResponse,
-  } = require("cosmjs-types/cosmos/bank/v1beta1/query");
-
   const rewardGaugeProto = incentivequery.QueryRewardGaugesResponse.fromPartial(
     {
       rewardGauges: {
@@ -124,14 +121,6 @@ export const injectBBNQueries = async (
         return false;
       },
       "cosmos.bank.v1beta1.Query/Balance": async () => {
-        try {
-          const {
-            QueryBalanceResponse,
-          } = require("cosmjs-types/cosmos/bank/v1beta1/query");
-        } catch (e) {
-          console.error("Error loading QueryBalanceResponse:", e);
-        }
-
         await route.fulfill({
           status: 200,
           contentType: "application/json",
@@ -681,6 +670,50 @@ export const injectBBNQueries = async (
         balance: {
           denom: "ubbn",
           amount: "1000000",
+        },
+      }),
+    });
+  });
+
+  await page.route("**/api/address/*/utxo", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify([
+        {
+          txid: "txid1",
+          vout: 0,
+          value: Number(mockData.bbnQueries.stakableBtc),
+          status: {
+            confirmed: true,
+          },
+        },
+      ]),
+    });
+  });
+
+  await page.route("**/api/v1/validate-address/*", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        isvalid: true,
+        scriptPubKey: "0014abcdef1234567890abcdef1234567890abcdef12",
+      }),
+    });
+  });
+
+  await page.route("**/api/address/*", async (route) => {
+    if (route.request().url().includes("/utxo")) {
+      return route.continue();
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        chain_stats: {
+          funded_txo_sum: Number(mockData.bbnQueries.stakableBtc),
+          spent_txo_sum: 0,
         },
       }),
     });
