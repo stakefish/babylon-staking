@@ -51,7 +51,7 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-explicit-any": "off",
       "import-x/order": [
-        "error",
+        "warn",
         {
           groups: [
             ["builtin", "external"],

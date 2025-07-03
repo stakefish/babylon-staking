@@ -2,7 +2,8 @@ import type * as T from "@radix-ui/react-popover";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import type { ComponentPropsWithoutRef, ForwardedRef } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 
 export const Root = ({
