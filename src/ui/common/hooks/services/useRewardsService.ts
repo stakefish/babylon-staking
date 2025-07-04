@@ -8,6 +8,7 @@ import { useRewardsState } from "@/ui/common/state/RewardState";
 import { retry } from "@/ui/common/utils";
 import { BBN_REGISTRY_TYPE_URLS } from "@/ui/common/utils/wallet/bbnRegistry";
 
+import { Mixpanel } from "../../utils/mixpanel";
 import { useBbnTransaction } from "../client/rpc/mutation/useBbnTransaction";
 import { useBbnQuery } from "../client/rpc/queries/useBbnQuery";
 
