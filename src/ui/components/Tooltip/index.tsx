@@ -4,7 +4,7 @@ import type * as T from "@radix-ui/react-tooltip";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { type ForwardedRef, type ReactNode, useState } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
 
 export interface TooltipProps extends T.TooltipProps {
   children: ReactNode | ReactNode[];

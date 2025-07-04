@@ -2,7 +2,7 @@
 import * as SwitchPrimitives from "@radix-ui/react-switch";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
 
 export type SwitchProps = ComponentPropsWithRef<
   typeof SwitchPrimitives.Root

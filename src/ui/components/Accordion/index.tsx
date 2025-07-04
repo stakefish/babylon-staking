@@ -4,7 +4,8 @@ import type * as T from "@radix-ui/react-accordion";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import type { ForwardedRef } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 
 const AccordionItem = ({

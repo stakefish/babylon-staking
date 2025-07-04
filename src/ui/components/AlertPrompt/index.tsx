@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 import { PromptBox } from "../PromptBox";
 

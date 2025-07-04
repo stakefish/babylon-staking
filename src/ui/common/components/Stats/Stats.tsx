@@ -6,6 +6,7 @@ import { useSystemStats } from "@/ui/common/hooks/client/api/useSystemStats";
 import { satoshiToBtc } from "@/ui/common/utils/btc";
 import { formatBTCTvl } from "@/ui/common/utils/formatBTCTvl";
 import { DataWidget, StatsSection } from "@/ui/componentsStakefish/DataWidget";
+
 import { useStakingState } from "../../state/StakingState";
 import { NA_SYMBOL } from "../../utils/constants";
 

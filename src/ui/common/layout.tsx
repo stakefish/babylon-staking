@@ -5,7 +5,6 @@ import { Network } from "@/ui/common/types/network";
 
 import { Footer } from "../componentsStakefish/Footer";
 import { Header } from "../componentsStakefish/Header";
-import { Banner } from "./components/Banner/Banner";
 
 export default function RootLayout({
   children,
@@ -19,7 +18,6 @@ export default function RootLayout({
         network === Network.MAINNET ? "main-app-mainnet" : "main-app-testnet",
       )}
     >
-      <Banner />
       <Header />
       {children}
 

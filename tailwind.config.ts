@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss";
 import { createThemes } from "tw-colors";
 
-const utils = require("./src/ui/utils/styles");
-const colors = require("./src/ui/theme/colors");
+import { pxToFontVmin } from "./src/ui/common/utils/styles";
+import { colors } from "./src/ui/theme/colors";
 
 const config: Config = {
   content: [
@@ -51,7 +51,7 @@ const config: Config = {
       44: ".44",
     },
     fontSize: {
-      desktopHero: [utils.pxToFontVmin(120, 88), "1"],
+      desktopHero: [pxToFontVmin(120, 88), "1"],
       desktopH1: ["56px", "64px"],
       desktopH2: ["48px", "52px"],
       desktopH3: ["40px", "44px"],
@@ -67,7 +67,7 @@ const config: Config = {
       desktopTag1: ["13px", "16px"],
       desktopTag2: ["8px", "10px"],
 
-      mobileHero: [utils.pxToFontVmin(64, 64), "1"],
+      mobileHero: [pxToFontVmin(64, 64), "1"],
       mobileH1: ["32px", "36px"],
       mobileH2: ["28px", "32px"],
       mobileH3: ["26px", "28px"],

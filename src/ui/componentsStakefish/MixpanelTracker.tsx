@@ -5,7 +5,7 @@ import type { PropsWithChildren } from "react";
 import {
   useMixpanelIdentify,
   useMixpanelPageTracker,
-} from "@/ui/hooks/useMixpanel";
+} from "@/ui/common/hooks/useMixpanel";
 
 export const MixpanelTracker = ({
   children,

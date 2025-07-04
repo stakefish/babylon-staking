@@ -1,11 +1,11 @@
 import { socialLinks } from "@/data/socials";
 import {
   Footer as FooterComponent,
-  type FooterProps,
+  FooterProps,
   type SocialLinkProps,
 } from "@/ui";
+import { WEBSITE_URL } from "@/ui/common/utils/stakefish";
 import { useMediaQueryContext } from "@/ui/context/ui/MediaQueryContext";
-import { WEBSITE_URL } from "@/ui/utils/stakefish";
 
 export const Footer = ({ fixed, menu, simple, ...props }: FooterProps) => {
   const { up } = useMediaQueryContext();

@@ -3,7 +3,8 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import type { ComponentPropsWithRef } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Icon, type IconProps } from "../Icon";
 import { Label, type LabelProps } from "../Label";
 

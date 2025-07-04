@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 import { Button } from "../Button";
 import { Skeleton } from "../Skeleton";
 import { Tooltip, type TooltipProps } from "../Tooltip";

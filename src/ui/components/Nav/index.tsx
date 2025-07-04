@@ -1,7 +1,8 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import type { ElementType, PropsWithChildren, ReactNode } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Icon, type IconProps } from "../Icon";
 import { Separator } from "../Separator";
 

@@ -1,9 +1,8 @@
-@import "react-responsive-modal/styles.css";
+@import "react-loading-skeleton/dist/skeleton.css";
 @import "react-tooltip/dist/react-tooltip.css";
 @import "react-toastify/dist/ReactToastify.css";
-@import "@babylonlabs-io/core-ui/dist/style.css";
-@import "@babylonlabs-io/wallet-connector/dist/style.css";
-@import "react-loading-skeleton/dist/skeleton.css";
+@import "@babylonlabs-io/core-ui/style.css";
+@import "@babylonlabs-io/wallet-connector/style.css";
 
 @tailwind base;
 @tailwind components;
@@ -18,12 +17,8 @@
     Arial, "Noto Sans";
   --font-primary: "Inter", var(--font-fallback), sans-serif;
   --font-display: "InterDisplay", var(--font-fallback), sans-serif;
+  --font-mono: "Noto Sans Mono", var(--font-fallback), monospace;
 }
-
-@import "../ui/theme/typography";
-@import "../ui/theme/extends";
-@import "../ui/theme/buttons";
-@import "../ui/theme/table";
 
 @media screen and (min-width: 768px) {
   :root {
@@ -101,20 +96,6 @@ input[type="number"] {
 .divider:before {
   height: 1px !important;
   width: 1px !important;
-}
-
-[data-theme="dark"] .react-responsive-modal-modal {
-  background-color: #1e1e1e;
-  color: #fff;
-}
-
-[data-theme="light"] .react-responsive-modal-modal {
-  background-color: #fff;
-  color: #000;
-}
-
-body.modal-open {
-  overflow: hidden;
 }
 
 .tooltip-wrap {

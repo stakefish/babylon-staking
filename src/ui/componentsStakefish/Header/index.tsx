@@ -2,10 +2,9 @@ import { useWalletConnect } from "@babylonlabs-io/wallet-connector";
 import Link from "next/link";
 
 import { Header as HeaderComponent } from "@/ui";
-import { useAppState } from "@/ui/state";
-import { WEBSITE_URL } from "@/ui/utils/stakefish";
-
-import { Connect } from "../../components/Wallet/Connect";
+import { Connect } from "@/ui/common/components/Wallet/Connect";
+import { useAppState } from "@/ui/common/state";
+import { WEBSITE_URL } from "@/ui/common/utils/stakefish";
 
 import { DashboardLabel } from "./DashboardLabel";
 import { NetworkDropdown } from "./NetworkDropdown";

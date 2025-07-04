@@ -3,7 +3,7 @@
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 import type { ComponentPropsWithRef } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
 
 export type ToggleGroupProps = typeof ToggleGroupPrimitive.Root;
 export const Group = ({

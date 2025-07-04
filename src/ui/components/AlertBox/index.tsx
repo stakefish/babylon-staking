@@ -1,7 +1,8 @@
 import { cva } from "class-variance-authority";
 import type { ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import type { IconProps } from "../Icon";
 import { Icon } from "../Icon";
 import type { LoadingIconProps } from "../LoadingIcon";

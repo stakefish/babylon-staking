@@ -3,7 +3,8 @@ import { Fragment, useCallback } from "react";
 import type { UseClipboardOptions } from "use-clipboard-copy";
 import { useClipboard } from "use-clipboard-copy";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button/types";
 
@@ -73,7 +74,7 @@ export const IconCopyButton = ({
           }}
           onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
             handleCopyClick();
-            onClick && onClick(event);
+            onClick?.(event);
           }}
         />
       )}

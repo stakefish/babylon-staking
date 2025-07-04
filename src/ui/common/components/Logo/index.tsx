@@ -1,4 +1,4 @@
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
 export interface LogoProps {
   pictogramOnly?: boolean;

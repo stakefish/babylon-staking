@@ -3,7 +3,8 @@
 import * as LabelPrimitive from "@radix-ui/react-label";
 import type { ComponentPropsWithRef } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Icon, type IconProps } from "../Icon";
 import { Tooltip, type TooltipProps } from "../Tooltip";
 

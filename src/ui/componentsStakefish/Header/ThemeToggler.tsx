@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { Button, type ButtonProps } from "@/ui";
-import { useAppState } from "@/ui/state";
+import { useAppState } from "@/ui/common/state";
 
 type ThemeTogglerProps = {
   buttonProps?: ButtonProps;

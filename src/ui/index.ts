@@ -1,3 +1,19 @@
+export { Footer, type FooterProps } from "./common/components/Footer";
+export { Header, type HeaderProps } from "./common/components/Header";
+export { default as useClickOutside } from "./common/hooks/useClickOutside";
+export {
+  areKeysPressed,
+  useKeyPress,
+  useMultiKeyPress,
+} from "./common/hooks/useKeyPress";
+export { default as usePrefersReducedMotion } from "./common/hooks/usePrefersReducedMotion";
+export { default as useSafeMediaQuery } from "./common/hooks/useSafeMediaQuery";
+export { default as useWindowPosition } from "./common/hooks/useWindowPosition";
+export { default as useWindowSize } from "./common/hooks/useWindowSize";
+export * as Types from "./common/types";
+export * as utils from "./common/utils";
+export * as constants from "./common/utils/constants";
+export { cx } from "./common/utils/cx";
 export * as Accordion from "./components/Accordion";
 export { AlertBox, type AlertBoxProps } from "./components/AlertBox";
 export { AlertPrompt, type AlertPromptProps } from "./components/AlertPrompt";
@@ -32,8 +48,6 @@ export {
   ErrorTooltip,
   type ErrorTooltipProps,
 } from "./components/ErrorTooltip";
-export { Footer, type FooterProps } from "./components/Footer";
-export { Header, type HeaderProps } from "./components/Header";
 export { Icon, type IconProps } from "./components/Icon";
 export type { IconKeyVariant, IconSize } from "./components/Icon/types";
 export { IconCircle, type IconCircleProps } from "./components/IconCircle";
@@ -69,18 +83,4 @@ export {
   WalletCapsule,
   type WalletCapsuleProps,
 } from "./components/WalletCapsule";
-export { default as useClickOutside } from "./hooks/useClickOutside";
-export {
-  areKeysPressed,
-  useKeyPress,
-  useMultiKeyPress,
-} from "./hooks/useKeyPress";
-export { default as usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
-export { default as useSafeMediaQuery } from "./hooks/useSafeMediaQuery";
-export { default as useWindowPosition } from "./hooks/useWindowPosition";
-export { default as useWindowSize } from "./hooks/useWindowSize";
 export { breakpoints } from "./theme/breakpoints";
-export * as Types from "./types";
-export * as utils from "./utils";
-export * as constants from "./utils/constants";
-export { cx } from "./utils/cx";

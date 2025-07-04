@@ -7,7 +7,6 @@ import { MultistakingFormWrapper } from "./components/Multistaking/MultistakingF
 import { PersonalBalance } from "./components/PersonalBalance/PersonalBalance";
 import { StakingForm } from "./components/Staking/StakingForm";
 import { Stats } from "./components/Stats/Stats";
-
 import Layout from "./layout";
 
 const Home = () => {

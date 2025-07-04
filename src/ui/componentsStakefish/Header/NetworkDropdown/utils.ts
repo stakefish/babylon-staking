@@ -1,7 +1,7 @@
 import { IconKeyVariant } from "@/ui";
-import { getNetworkConfigBTC } from "@/ui/config/network/btc";
-import { Network } from "@/ui/types/network";
-import { WEBSITE_URL } from "@/ui/utils/stakefish";
+import { getNetworkConfigBTC } from "@/ui/common/config/network/btc";
+import { Network } from "@/ui/common/types/network";
+import { WEBSITE_URL } from "@/ui/common/utils/stakefish";
 
 export const ProtocolVariants = ["ethereum", "babylon"] as const;
 export const ChainIdVariants = [1, 560048] as const;

@@ -1,7 +1,7 @@
 import { cx } from "class-variance-authority";
 
 import { Button } from "@/ui";
-import { getLinkProps } from "@/ui/utils/stakefish";
+import { getLinkProps } from "@/ui/common/utils/stakefish";
 
 export const DashboardLabel = ({ className }: { className?: string }) => {
   return (
