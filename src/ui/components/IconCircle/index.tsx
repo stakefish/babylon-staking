@@ -1,6 +1,7 @@
 "use client";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Icon, type IconProps } from "../Icon";
 
 export interface IconCircleProps extends IconProps {

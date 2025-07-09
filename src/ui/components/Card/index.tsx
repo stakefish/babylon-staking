@@ -1,7 +1,8 @@
 import type { VariantProps } from "class-variance-authority";
 import type { ElementType, HTMLAttributes, PropsWithChildren } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import type { IconProps } from "../Icon";
 import type { IconCircleProps } from "../IconCircle";
 import { IconCircle } from "../IconCircle";

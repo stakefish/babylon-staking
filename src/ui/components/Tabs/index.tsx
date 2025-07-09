@@ -3,7 +3,8 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import type { ButtonProps } from "../Button/types";
 import { Tooltip } from "../Tooltip";
 

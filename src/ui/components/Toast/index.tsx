@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { useEffect, useState } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 import type { AlertBoxProps } from "../AlertBox";
 import { Button } from "../Button";
 import { Icon } from "../Icon";

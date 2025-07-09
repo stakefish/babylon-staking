@@ -3,7 +3,7 @@ import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import type { ElementType, ForwardedRef, HTMLAttributes } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
 
 const defaultElement = "div" as const;
 

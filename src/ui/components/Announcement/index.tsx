@@ -1,6 +1,6 @@
 import type { HTMLAttributes, PropsWithChildren } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
 export interface AnnouncementProps extends HTMLAttributes<HTMLDivElement> {
   animate?: boolean;

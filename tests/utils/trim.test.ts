@@ -1,4 +1,4 @@
-import { trim } from "@/utils/trim";
+import { trim } from "@/ui/common/utils/trim";
 
 describe("trim", () => {
   const txHashHex =

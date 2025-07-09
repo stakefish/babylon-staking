@@ -1,0 +1,22 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ErrorBoundary } from "react-error-boundary";
+import { BrowserRouter } from "react-router";
+
+import GlobalError from "@/ui/common/global-error";
+import Providers from "@/ui/common/providers";
+import { Router } from "@/ui/router";
+
+import "@/ui/stakefish.scss";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Providers>
+        <ErrorBoundary FallbackComponent={GlobalError}>
+          <Router />
+        </ErrorBoundary>
+      </Providers>
+    </BrowserRouter>
+  </StrictMode>,
+);

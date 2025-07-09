@@ -1,11 +1,11 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { useLocalStorage } from "usehooks-ts";
 
-import { useDelegationStorage } from "@/app/hooks/storage/useDelegationStorage";
+import { useDelegationStorage } from "@/ui/common/hooks/storage/useDelegationStorage";
 import {
   DelegationV2,
   DelegationV2StakingState,
-} from "@/app/types/delegationsV2";
+} from "@/ui/common/types/delegationsV2";
 
 jest.mock("usehooks-ts", () => ({
   useLocalStorage: jest.fn(),
@@ -209,9 +209,7 @@ describe("useDelegationStorage", () => {
         return [{}, jest.fn()];
       });
 
-      const { result } = renderHook(() =>
-        useDelegationStorage(mockKey, mockDelegations),
-      );
+      renderHook(() => useDelegationStorage(mockKey, mockDelegations));
 
       await waitFor(() => {
         expect(mockSetPendingDelegations).toHaveBeenCalledWith({});
@@ -251,9 +249,7 @@ describe("useDelegationStorage", () => {
         return [{}, jest.fn()];
       });
 
-      const { result } = renderHook(() =>
-        useDelegationStorage(mockKey, mockDelegations),
-      );
+      renderHook(() => useDelegationStorage(mockKey, mockDelegations));
 
       await waitFor(() => {
         expect(mockSetDelegationStatuses).toHaveBeenCalledWith({});

@@ -1,7 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
 import { forwardRef } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 
 import type { ButtonProps, ButtonSizeVariant } from "./types";

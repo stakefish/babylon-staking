@@ -4,7 +4,8 @@ import type * as T from "@radix-ui/react-dropdown-menu";
 import * as DropdownPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithRef, ForwardedRef } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { ListItem, type NavItemProps } from "../Nav";
 
 export interface DropdownContentProps extends T.DropdownMenuContentProps {
@@ -12,7 +13,7 @@ export interface DropdownContentProps extends T.DropdownMenuContentProps {
   list?: NavItemProps[];
   ref?: ForwardedRef<HTMLDivElement>;
 }
-export interface DropdownMenuTriggerProps extends T.DropdownMenuTriggerProps {}
+export type DropdownMenuTriggerProps = T.DropdownMenuTriggerProps;
 
 export const Sub = DropdownPrimitive.Sub;
 export const SubTrigger = DropdownPrimitive.SubTrigger;

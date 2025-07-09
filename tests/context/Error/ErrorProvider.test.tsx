@@ -1,14 +1,17 @@
 /* eslint-disable import/order */
-import { ClientErrorCategory } from "@/app/constants/errorMessages";
-import { ErrorProvider, useError } from "@/app/context/Error/ErrorProvider";
-import { ClientError } from "@/app/context/Error/errors/clientError";
-import { ErrorType } from "@/app/types/errors";
+import { ClientErrorCategory } from "@/ui/common/constants/errorMessages";
+import {
+  ErrorProvider,
+  useError,
+} from "@/ui/common/context/Error/ErrorProvider";
+import { ClientError } from "@/ui/common/context/Error/errors/clientError";
+import { ErrorType } from "@/ui/common/types/errors";
 import "@testing-library/jest-dom";
 
 import { render, screen, waitFor } from "@testing-library/react";
 import React, { useRef } from "react";
 
-jest.mock("@/app/components/Modals/ErrorModal", () => ({
+jest.mock("@/ui/common/components/Modals/ErrorModal", () => ({
   ErrorModal: () => <div data-testid="error-modal">Error Modal</div>,
 }));
 

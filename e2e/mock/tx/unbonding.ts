@@ -1,4 +1,4 @@
-import { DelegationState } from "@/app/types/delegations";
+import { DelegationState } from "@/ui/common/types/delegations";
 
 export const activeTX = {
   data: [

@@ -1,8 +1,9 @@
 import type { HTMLAttributes } from "react";
 import { useState } from "react";
 
-import { cx } from "../../utils";
-import { NA_TEXT } from "../../utils/constants";
+import { cx } from "@/ui";
+import { NA_TEXT } from "@/ui/common/utils/constants";
+
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button/types";
 import type { IconProps } from "../Icon";

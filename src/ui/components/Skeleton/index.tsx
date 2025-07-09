@@ -1,7 +1,7 @@
 import type { SkeletonProps as RawSkeletonProps } from "react-loading-skeleton";
 import RawSkeleton from "react-loading-skeleton";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
 export interface SkeletonProps extends RawSkeletonProps {
   className?: string;

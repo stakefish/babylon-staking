@@ -1,5 +1,6 @@
+import { cx } from "@/ui";
+
 import { MetaMask, WalletConnect } from "../../assets/logos";
-import { cx } from "../../utils/cx";
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button/types";
 import { LoadingIcon } from "../LoadingIcon";

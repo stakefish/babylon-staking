@@ -1,8 +1,11 @@
 import type { HTMLAttributes } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
-export interface EllipsisTextBoxProps extends HTMLAttributes<HTMLDivElement> {}
+export interface EllipsisTextBoxProps extends HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  className?: string;
+}
 
 export const EllipsisTextBox = ({
   children,

@@ -1,10 +1,11 @@
-import { getUTXOs } from "@/utils/mempool_api";
+import { ClientError, ERROR_CODES } from "@/ui/common/errors";
+import { getUTXOs } from "@/ui/common/utils/mempool_api";
 
 // Mocking fetch globally
 global.fetch = jest.fn() as jest.Mock;
 
 // Mocking getNetworkConfig to return a specific mempoolApiUrl
-jest.mock("@/config/network/btc", () => ({
+jest.mock("@/ui/common/config/network/btc", () => ({
   getNetworkConfigBTC: jest.fn(() => ({
     mempoolApiUrl: "https://mempool.space",
   })),
@@ -135,6 +136,16 @@ describe("getFundingUTXOs", () => {
         }
       });
 
-    await expect(getUTXOs("testAddress")).rejects.toThrow("Invalid address");
+    await expect(getUTXOs("testAddress")).rejects.toThrow(
+      new ClientError(
+        ERROR_CODES.EXTERNAL_SERVICE_UNAVAILABLE,
+        "Error getting UTXOs",
+        {
+          cause: new Error(
+            "Invalid address provided for UTXO lookup or mempool API validation failed: testAddress",
+          ),
+        },
+      ),
+    );
   });
 });

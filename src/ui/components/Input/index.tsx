@@ -2,7 +2,8 @@
 
 import type { ForwardedRef, PropsWithChildren, ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Button } from "../Button";
 import { Label, type LabelProps } from "../Label";
 import { Tooltip, type TooltipProps } from "../Tooltip";

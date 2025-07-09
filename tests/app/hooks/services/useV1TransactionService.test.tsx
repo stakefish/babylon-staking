@@ -1,8 +1,8 @@
 // Mock SVG imports
-jest.mock("@/app/assets/warning-triangle.svg", () => "SVG-mock");
+jest.mock("@/ui/common/assets/warning-triangle.svg", () => "SVG-mock");
 
 // Mock the Error Provider to avoid the SVG import issue
-jest.mock("@/app/context/Error/ErrorProvider", () => ({
+jest.mock("@/ui/common/context/Error/ErrorProvider", () => ({
   useError: jest.fn(),
 }));
 
@@ -36,32 +36,32 @@ jest.mock("@babylonlabs-io/wallet-connector", () => ({
 import { act, renderHook } from "@testing-library/react";
 import { Transaction } from "bitcoinjs-lib";
 
-import { getUnbondingEligibility } from "@/app/api/getUnbondingEligibility";
-import { postUnbonding } from "@/app/api/postUnbonding";
-import { ClientErrorCategory } from "@/app/constants/errorMessages";
-import { ClientError } from "@/app/context/Error/errors";
-import { useBTCWallet } from "@/app/context/wallet/BTCWalletProvider";
-import { useNetworkFees } from "@/app/hooks/client/api/useNetworkFees";
-import { useStakingManagerService } from "@/app/hooks/services/useStakingManagerService";
-import { useV1TransactionService } from "@/app/hooks/services/useV1TransactionService";
-import { useAppState } from "@/app/state";
-import { ErrorType } from "@/app/types/errors";
-import { validateStakingInput } from "@/utils/delegations";
-import { txFeeSafetyCheck } from "@/utils/delegations/fee";
-import { getFeeRateFromMempool } from "@/utils/getFeeRateFromMempool";
-import { getBbnParamByBtcHeight } from "@/utils/params";
+import { getUnbondingEligibility } from "@/ui/common/api/getUnbondingEligibility";
+import { postUnbonding } from "@/ui/common/api/postUnbonding";
+import { ClientErrorCategory } from "@/ui/common/constants/errorMessages";
+import { ClientError } from "@/ui/common/context/Error/errors";
+import { useBTCWallet } from "@/ui/common/context/wallet/BTCWalletProvider";
+import { useNetworkFees } from "@/ui/common/hooks/client/api/useNetworkFees";
+import { useStakingManagerService } from "@/ui/common/hooks/services/useStakingManagerService";
+import { useV1TransactionService } from "@/ui/common/hooks/services/useV1TransactionService";
+import { useAppState } from "@/ui/common/state";
+import { ErrorType } from "@/ui/common/types/errors";
+import { validateStakingInput } from "@/ui/common/utils/delegations";
+import { txFeeSafetyCheck } from "@/ui/common/utils/delegations/fee";
+import { getFeeRateFromMempool } from "@/ui/common/utils/getFeeRateFromMempool";
+import { getBbnParamByBtcHeight } from "@/ui/common/utils/params";
 
 // Mock all dependencies
-jest.mock("@/app/api/getUnbondingEligibility");
-jest.mock("@/app/api/postUnbonding");
-jest.mock("@/app/context/wallet/BTCWalletProvider");
-jest.mock("@/app/hooks/client/api/useNetworkFees");
-jest.mock("@/app/hooks/services/useStakingManagerService");
-jest.mock("@/app/state");
-jest.mock("@/utils/delegations");
-jest.mock("@/utils/delegations/fee");
-jest.mock("@/utils/getFeeRateFromMempool");
-jest.mock("@/utils/params");
+jest.mock("@/ui/common/api/getUnbondingEligibility");
+jest.mock("@/ui/common/api/postUnbonding");
+jest.mock("@/ui/common/context/wallet/BTCWalletProvider");
+jest.mock("@/ui/common/hooks/client/api/useNetworkFees");
+jest.mock("@/ui/common/hooks/services/useStakingManagerService");
+jest.mock("@/ui/common/state");
+jest.mock("@/ui/common/utils/delegations");
+jest.mock("@/ui/common/utils/delegations/fee");
+jest.mock("@/ui/common/utils/getFeeRateFromMempool");
+jest.mock("@/ui/common/utils/params");
 jest.mock("bitcoinjs-lib", () => ({
   Transaction: {
     fromHex: jest.fn(),
@@ -84,7 +84,7 @@ describe("useV1TransactionService", () => {
   const mockStakerSignatureHex = "mock-staker-signature-hex";
 
   const mockStakingInput = {
-    finalityProviderPkNoCoordHex: mockFinalityProviderPkHex,
+    finalityProviderPksNoCoordHex: [mockFinalityProviderPkHex],
     stakingAmountSat: mockStakingAmountSat,
     stakingTimelock: mockTimelock,
   };

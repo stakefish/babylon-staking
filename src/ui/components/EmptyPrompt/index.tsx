@@ -1,7 +1,7 @@
-import type { HTMLAttributes, ReactNode } from "react";
 import { Heading } from "@babylonlabs-io/core-ui";
+import type { HTMLAttributes, ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
 export interface EmptyPromptProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;

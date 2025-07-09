@@ -1,8 +1,8 @@
 // Mock SVG imports
-jest.mock("@/app/assets/warning-triangle.svg", () => "SVG-mock");
+jest.mock("@/ui/common/assets/warning-triangle.svg", () => "SVG-mock");
 
 // Mock the Error Provider to avoid the SVG import issue
-jest.mock("@/app/context/Error/ErrorProvider", () => ({
+jest.mock("@/ui/common/context/Error/ErrorProvider", () => ({
   useError: jest.fn(),
 }));
 
@@ -11,52 +11,41 @@ jest.mock("@uidotdev/usehooks", () => ({
   useDebounce: jest.fn((value) => value),
 }));
 
-import { SigningStep } from "@babylonlabs-io/btc-staking-ts";
 import { act, renderHook } from "@testing-library/react";
 
-import { getDelegationV2 } from "@/app/api/getDelegationsV2";
-import { useError } from "@/app/context/Error/ErrorProvider";
-import { useBTCWallet } from "@/app/context/wallet/BTCWalletProvider";
-import { useCosmosWallet } from "@/app/context/wallet/CosmosWalletProvider";
-import { useBbnTransaction } from "@/app/hooks/client/rpc/mutation/useBbnTransaction";
-import { useStakingService } from "@/app/hooks/services/useStakingService";
-import { useTransactionService } from "@/app/hooks/services/useTransactionService";
-import { useDelegationV2State } from "@/app/state/DelegationV2State";
-import { StakingStep, useStakingState } from "@/app/state/StakingState";
+import { getDelegationV2 } from "@/ui/common/api/getDelegationsV2";
+import { useError } from "@/ui/common/context/Error/ErrorProvider";
+import { useBTCWallet } from "@/ui/common/context/wallet/BTCWalletProvider";
+import { useCosmosWallet } from "@/ui/common/context/wallet/CosmosWalletProvider";
+import { useBbnTransaction } from "@/ui/common/hooks/client/rpc/mutation/useBbnTransaction";
+import { useStakingService } from "@/ui/common/hooks/services/useStakingService";
+import { useTransactionService } from "@/ui/common/hooks/services/useTransactionService";
+import { useDelegationV2State } from "@/ui/common/state/DelegationV2State";
+import { StakingStep, useStakingState } from "@/ui/common/state/StakingState";
 import {
   DelegationV2,
   DelegationV2StakingState,
-} from "@/app/types/delegationsV2";
-import { retry } from "@/utils";
+} from "@/ui/common/types/delegationsV2";
+import { retry } from "@/ui/common/utils";
 
 // Mock all dependencies
-jest.mock("@/app/api/getDelegationsV2");
-jest.mock("@/app/context/Error/ErrorProvider");
-jest.mock("@/app/context/wallet/BTCWalletProvider");
-jest.mock("@/app/context/wallet/CosmosWalletProvider");
-jest.mock("@/app/hooks/services/useTransactionService");
-jest.mock("@/app/hooks/client/rpc/mutation/useBbnTransaction");
-jest.mock("@/app/state/DelegationV2State");
-jest.mock("@/app/state/StakingState");
-jest.mock("@/utils", () => ({
+jest.mock("@/ui/common/api/getDelegationsV2");
+jest.mock("@/ui/common/context/Error/ErrorProvider");
+jest.mock("@/ui/common/context/wallet/BTCWalletProvider");
+jest.mock("@/ui/common/context/wallet/CosmosWalletProvider");
+jest.mock("@/ui/common/hooks/services/useTransactionService");
+jest.mock("@/ui/common/hooks/client/rpc/mutation/useBbnTransaction");
+jest.mock("@/ui/common/state/DelegationV2State");
+jest.mock("@/ui/common/state/StakingState");
+jest.mock("@/ui/common/utils", () => ({
   retry: jest.fn(),
   btcToSatoshi: (value: number) => value * 100000000, // Mock satoshi conversion
-}));
-
-// Mock the SigningStep enum from the library like in the other test
-jest.mock("@babylonlabs-io/btc-staking-ts", () => ({
-  SigningStep: {
-    STAKING_SLASHING: "staking-slashing",
-    UNBONDING_SLASHING: "unbonding-slashing",
-    PROOF_OF_POSSESSION: "proof-of-possession",
-    CREATE_BTC_DELEGATION_MSG: "create-btc-delegation-msg",
-  },
 }));
 
 describe("useStakingService", () => {
   // Mock data
   const mockFormData = {
-    finalityProvider: "mock-finality-provider",
+    finalityProviders: ["mock-finality-provider"],
     amount: 1.2, // BTC
     term: 10000, // blocks
     feeRate: 5,
@@ -156,7 +145,7 @@ describe("useStakingService", () => {
     (getDelegationV2 as jest.Mock).mockResolvedValue(mockDelegation);
 
     // Mock retry utility
-    (retry as jest.Mock).mockImplementation((fn, predicate, interval) => {
+    (retry as jest.Mock).mockImplementation((fn) => {
       return fn();
     });
 
@@ -172,7 +161,7 @@ describe("useStakingService", () => {
       const { result } = renderHook(() => useStakingService());
 
       const fee = result.current.calculateFeeAmount({
-        finalityProvider: mockFormData.finalityProvider,
+        finalityProviders: mockFormData.finalityProviders,
         amount: mockFormData.amount,
         term: mockFormData.term,
         feeRate: mockFormData.feeRate,
@@ -181,7 +170,7 @@ describe("useStakingService", () => {
       // Verify estimateStakingFee was called correctly
       expect(mockEstimateStakingFee).toHaveBeenCalledWith(
         {
-          finalityProviderPkNoCoordHex: mockFormData.finalityProvider,
+          finalityProviderPksNoCoordHex: mockFormData.finalityProviders,
           stakingAmountSat: mockAmountSat,
           stakingTimelock: mockFormData.term,
           feeRate: mockFormData.feeRate,
@@ -200,8 +189,8 @@ describe("useStakingService", () => {
       const { result } = renderHook(() => useStakingService());
 
       expect(() => {
-        const fee = result.current.calculateFeeAmount({
-          finalityProvider: mockFormData.finalityProvider,
+        result.current.calculateFeeAmount({
+          finalityProviders: mockFormData.finalityProviders,
           amount: mockFormData.amount,
           term: mockFormData.term,
           feeRate: mockFormData.feeRate,
@@ -234,7 +223,7 @@ describe("useStakingService", () => {
 
       expect(mockCreateDelegationEoi).toHaveBeenCalledWith(
         {
-          finalityProviderPkNoCoordHex: mockFormData.finalityProvider,
+          finalityProviderPksNoCoordHex: mockFormData.finalityProviders,
           stakingAmountSat: mockFormData.amount,
           stakingTimelock: mockFormData.term,
           feeRate: mockFormData.feeRate,
@@ -297,8 +286,8 @@ describe("useStakingService", () => {
 
       expect(mockSubmitStakingTx).toHaveBeenCalledWith(
         {
-          finalityProviderPkNoCoordHex:
-            mockDelegation.finalityProviderBtcPksHex[0],
+          finalityProviderPksNoCoordHex:
+            mockDelegation.finalityProviderBtcPksHex,
           stakingAmountSat: mockDelegation.stakingAmount,
           stakingTimelock: mockDelegation.stakingTimelock,
         },
@@ -360,11 +349,12 @@ describe("useStakingService", () => {
       expect(mockSubscribeToSigningSteps).toHaveBeenCalled();
 
       // Simulate a signing step event
-      mockCallback(SigningStep.STAKING_SLASHING);
+      mockCallback("staking-slashing");
 
       // Verify the step was updated
       expect(mockGoToStep).toHaveBeenCalledWith(
         StakingStep.EOI_STAKING_SLASHING,
+        undefined,
       );
     });
   });

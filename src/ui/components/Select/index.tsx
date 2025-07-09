@@ -2,7 +2,8 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
 import type { ComponentPropsWithRef, ForwardedRef, ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 import { Hint, inputSharedStyles } from "../Input";
 import { Label, type LabelProps } from "../Label";
@@ -165,8 +166,6 @@ export interface FieldProps extends SelectPrimitive.SelectProps {
   ref?: ForwardedRef<HTMLDivElement>;
 }
 export const Field = ({
-  className,
-  children,
   options,
   invalid,
   id,

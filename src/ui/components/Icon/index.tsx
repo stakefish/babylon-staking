@@ -1,7 +1,7 @@
 import type { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
 import * as Icons from "../../assets/icons";
-import { cx } from "../../utils/cx";
+import { cx } from "../../common/utils/cx";
 
 import type * as T from "./types";
 

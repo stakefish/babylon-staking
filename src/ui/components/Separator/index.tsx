@@ -1,9 +1,11 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 
-export interface SeparatorProps
-  extends Omit<SeparatorPrimitive.SeparatorProps, "orientation"> {}
+export type SeparatorProps = Omit<
+  SeparatorPrimitive.SeparatorProps,
+  "orientation"
+>;
 
 export const Separator = ({ className, ...props }: SeparatorProps) => {
   const classNames = cx("h-[1px] bg-itemPrimaryMute", className);

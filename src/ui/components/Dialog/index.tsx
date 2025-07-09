@@ -8,7 +8,8 @@ import type {
   HTMLAttributes,
 } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import type { ButtonProps } from "../Button/types";
 import { Icon } from "../Icon";
 

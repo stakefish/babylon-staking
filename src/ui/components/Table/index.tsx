@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from "react";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import { Icon } from "../Icon";
 
 import type { ColProps, HeaderColProps, HeaderProps, RowProps } from "./types";

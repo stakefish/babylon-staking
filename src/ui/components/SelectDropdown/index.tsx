@@ -2,7 +2,8 @@ import type * as T from "@radix-ui/react-select";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import type { ForwardedRef } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button/types";
 import { Icon } from "../Icon";

@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
-import { cx } from "../../utils";
+import { cx } from "@/ui";
+
 import type { IconProps } from "../Icon";
 import { Icon } from "../Icon";
 import type { LoadingIconProps } from "../LoadingIcon";

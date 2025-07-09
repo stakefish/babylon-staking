@@ -1,4 +1,4 @@
-import { pxToFontVmin } from "../utils/styles";
+import { pxToFontVmin } from "@/ui/common/utils/styles";
 
 export const typographyVariants = {
   desktopHero: [pxToFontVmin(120, 88), "1"],

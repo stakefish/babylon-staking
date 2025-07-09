@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
 import { Button } from "../Button";
 import type { ButtonProps } from "../Button/types";
 import { Icon } from "../Icon";

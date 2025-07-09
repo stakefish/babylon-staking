@@ -1,6 +1,7 @@
 import type { ElementType } from "react";
 
-import { cx } from "../../utils/cx";
+import { cx } from "@/ui";
+
 import { Card } from "../Card";
 import { Icon } from "../Icon";
 import type { IconKeyVariant, IconSize } from "../Icon/types";
