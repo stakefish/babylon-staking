@@ -191,7 +191,7 @@ export const detectSingaporeUser = async (
       };
     }
 
-    return { isSingapore: true, method: "none", confidence: 0.5 };
+    return { isSingapore: false, method: "none", confidence: 0.5 };
   } catch (error) {
     console.error("Singapore detection failed:", error);
     return { isSingapore: false, method: "error", confidence: 0.0 };

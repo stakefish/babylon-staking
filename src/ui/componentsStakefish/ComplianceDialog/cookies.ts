@@ -7,6 +7,7 @@ const DOMAIN = getComplianceConfig().cookie.domain;
 export const setComplianceCookie = () => {
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+  console.log("Setting compliance cookie", COMPLIANCE_COOKIE_NAME, DOMAIN);
 
   document.cookie = `${COMPLIANCE_COOKIE_NAME}=true; expires=${expiryDate.toUTCString()}; path=/; domain=${DOMAIN}; SameSite=Lax`;
 };
