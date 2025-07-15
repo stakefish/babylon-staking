@@ -3,6 +3,8 @@ import { twJoin } from "tailwind-merge";
 import { network } from "@/ui/common/config/network/btc";
 import { Network } from "@/ui/common/types/network";
 
+import { ComplianceDialog } from "../componentsStakefish/ComplianceDialog";
+import { useSingaporeCompliance } from "../componentsStakefish/ComplianceDialog/useSingaporeCompliance";
 import { Footer } from "../componentsStakefish/Footer";
 import { Header } from "../componentsStakefish/Header";
 
@@ -11,6 +13,8 @@ export default function RootLayout({
 }: Readonly<{
   children?: React.ReactNode;
 }>) {
+  const { shouldShowDialog } = useSingaporeCompliance();
+
   return (
     <div
       className={twJoin(
@@ -22,6 +26,8 @@ export default function RootLayout({
       {children}
 
       <Footer simple fixed />
+
+      {!!shouldShowDialog && <ComplianceDialog />}
     </div>
   );
 }
