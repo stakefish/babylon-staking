@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getComplianceConfig } from "./config";
+import { COMPLIANCE_CONFIG } from "./config";
 import { getComplianceCookie, setComplianceCookie } from "./cookies";
 import { detectSingaporeUser } from "./geolocationService";
 
@@ -16,8 +16,7 @@ export const useSingaporeCompliance = () => {
     const checkSingaporeUser = async () => {
       setIsDetecting(true);
       try {
-        const config = getComplianceConfig();
-        const result = await detectSingaporeUser(config.geolocation);
+        const result = await detectSingaporeUser(COMPLIANCE_CONFIG.geolocation);
         setIsSingaporeUser(result.isSingapore);
 
         if (result.isSingapore) {
