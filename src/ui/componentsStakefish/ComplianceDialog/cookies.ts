@@ -5,11 +5,9 @@ export const COMPLIANCE_COOKIE_NAME = getComplianceConfig().cookie.name;
 const DOMAIN = getComplianceConfig().cookie.domain;
 
 export const setComplianceCookie = () => {
-  const expiryDate = new Date();
-  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-  console.log("Setting compliance cookie", COMPLIANCE_COOKIE_NAME, DOMAIN);
+  const expiryDate = new Date(Date.now() + 86400000 * 365);
 
-  document.cookie = `${COMPLIANCE_COOKIE_NAME}=true; expires=${expiryDate.toUTCString()}; path=/; domain=${DOMAIN}; SameSite=None; Secure; HttpOnly`;
+  document.cookie = `${COMPLIANCE_COOKIE_NAME}=true; expires=${expiryDate.toUTCString()}; path=/; domain=${DOMAIN}`;
 };
 
 export const getComplianceCookie = (): boolean => {
