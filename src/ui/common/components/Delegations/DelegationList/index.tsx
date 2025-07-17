@@ -40,13 +40,13 @@ const columns: TableColumn<DelegationWithFP, TableParams>[] = [
   {
     field: "Inception",
     headerName: "Inception",
-    width: "minmax(max-content, 1fr)",
+    width: "minmax(min-content, 0.75fr)",
     renderCell: (row) => <Inception value={row.bbnInceptionTime} />,
   },
   {
     field: "finalityProvider",
     headerName: "Finality Provider",
-    width: "minmax(max-content, 1fr)",
+    width: "minmax(max-content, 0.5fr)",
     renderCell: (row) => <FinalityProviderMoniker value={row.fp} />,
   },
   {
@@ -58,13 +58,13 @@ const columns: TableColumn<DelegationWithFP, TableParams>[] = [
   {
     field: "stakingTxHashHex",
     headerName: "Transaction ID",
-    width: "minmax(max-content, 1fr)",
+    width: "minmax(max-content, 0.5fr)",
     renderCell: (row) => <TxHash value={row.stakingTxHashHex} />,
   },
   {
     field: "state",
     headerName: "Status",
-    width: "minmax(max-content, 1fr)",
+    width: "minmax(min-content, 180px)",
     renderCell: (row, _, { validations }) => {
       const { valid, error } = validations[row.stakingTxHashHex];
       if (!valid) return <Hint tooltip={error}>Unavailable</Hint>;

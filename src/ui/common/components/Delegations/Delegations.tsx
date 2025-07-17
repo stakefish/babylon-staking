@@ -366,9 +366,27 @@ export const Delegations = () => {
     return null;
   }
 
+  const fakeDelegation: DelegationInterface = {
+    stakingTxHashHex: "12asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd3",
+    stakerPkHex: "12asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd3",
+    finalityProviderPkHex: "12asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd3",
+    state: DelegationState.ACTIVE,
+    stakingValueSat: 1000000,
+    stakingTx: {
+      txHex: "12asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd3",
+      outputIndex: 0,
+      startTimestamp: "123",
+      startHeight: 123,
+      timelock: 123,
+    },
+    unbondingTx: undefined,
+    isOverflow: false,
+    isEligibleForTransition: false,
+  };
+
   // combine delegations from the API and local storage, prioritizing API data
   const combinedDelegationsData = delegationsAPI
-    ? [...delegations, ...delegationsAPI.delegations]
+    ? [...delegations, ...delegationsAPI.delegations, fakeDelegation]
     : // if no API data, fallback to using only local storage delegations
       delegations;
 

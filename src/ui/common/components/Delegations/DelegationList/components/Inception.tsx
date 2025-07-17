@@ -8,7 +8,7 @@ export function Inception({ value }: Inception) {
   const currentTime = Date.now();
 
   return (
-    <div className="order-3 lg:order-1">
+    <div className="order-3 lg:order-1 whitespace-pre-line break-words">
       {durationTillNow(value, currentTime)}
     </div>
   );
