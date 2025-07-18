@@ -205,10 +205,10 @@
       @apply text-h2 max-w-3xl;
     }
     h3 {
-      @apply text-h3 flounder:mt-18 mt-15 flounder:mb-15 mb-8 max-w-3xl;
+      @apply text-h3 mb-8 mt-14 max-w-3xl flounder:mb-14 flounder:mt-16;
     }
     h4 {
-      @apply text-h4 flounder:mt-15 mb-6 mt-8 flounder:mb-10;
+      @apply text-h4 mb-6 mt-8 flounder:mb-10 flounder:mt-14;
     }
     h5 {
       @apply text-h5 mb-4 mt-10 flounder:mb-6 flounder:mt-12;
@@ -252,7 +252,7 @@
     }
 
     ul {
-      @apply flounder:pl-15 list-disc space-y-4 pl-8;
+      @apply list-disc space-y-4 pl-8 flounder:pl-14;
     }
 
     strong,
