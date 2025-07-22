@@ -13,11 +13,15 @@ function FinalityProviderAutoSelector() {
   const { setValue } = useFormContext();
 
   useEffect(() => {
-    setValue("finalityProvider", process.env.NEXT_PUBLIC_FINALITY_PROVIDER_PK, {
-      shouldValidate: true,
-      shouldTouch: true,
-      shouldDirty: true,
-    });
+    setValue(
+      "finalityProviders",
+      [process.env.NEXT_PUBLIC_FINALITY_PROVIDER_PK],
+      {
+        shouldValidate: true,
+        shouldTouch: true,
+        shouldDirty: true,
+      },
+    );
   }, [setValue]);
 
   return null;
