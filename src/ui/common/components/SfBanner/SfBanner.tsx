@@ -14,8 +14,8 @@ export const SfBanner = () => {
           <Button
             variant="text"
             size="sm"
-            endIcon={{ iconKey: "share", size: 12 }}
-            className="normal-case font-normal underline hover:no-underline"
+            endIcon={{ iconKey: "share", size: 12, className: "relative top-px" }}
+            className="normal-case font-normal underline hover:no-underline gap-1"
             href="https://blog.stake.fish/how-to-stake-bitcoin-with-stakefish-on-babylon-phase-2"
             rel="noopener noreferrer"
           >
