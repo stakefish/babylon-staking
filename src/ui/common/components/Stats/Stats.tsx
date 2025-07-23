@@ -64,7 +64,7 @@ export const Stats = memo(() => {
         text: `${stakingInfo?.maxStakingTimeBlocks.toLocaleString()}/${stakingInfo?.minStakingTimeBlocks.toLocaleString()} ${coinSymbol} Blocks`,
         isLoading: isStakingInfoLoading,
       },
-      className: "flex-col",
+      className: "flex-col text-nowrap",
     },
     {
       title: {
