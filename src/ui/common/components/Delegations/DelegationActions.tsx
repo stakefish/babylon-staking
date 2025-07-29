@@ -22,6 +22,15 @@ const sharedButtonProps: ButtonProps = {
     "block normal-case font-normal !p-2 -my-2.5 !-mx-2 tracking-normal underline-offset-1",
 };
 
+const registerButtonProps: ButtonProps = {
+  application: true,
+  variant: "text",
+  size: "xs",
+  color: "primary",
+  className:
+    "block !p-2 -my-2.5 !-mx-2 tracking-wide underline-offset-2 underline decoration-orange40 hover:no-underline text-orange40",
+};
+
 interface DelegationActionsProps {
   state: string;
   intermediateState?: string;
@@ -142,7 +151,7 @@ export const DelegationActions: React.FC<DelegationActionsProps> = ({
       >
         <div className="flex items-center gap-1">
           <Button
-            {...sharedButtonProps}
+            {...registerButtonProps}
             onClick={onRegistration}
             disabled={
               Boolean(disabled) ||

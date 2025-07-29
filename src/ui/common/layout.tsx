@@ -8,6 +8,8 @@ import { useSingaporeCompliance } from "../componentsStakefish/ComplianceDialog/
 import { Footer } from "../componentsStakefish/Footer";
 import { Header } from "../componentsStakefish/Header";
 
+import { SfBanner } from "./components/SfBanner/SfBanner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +25,10 @@ export default function RootLayout({
       )}
     >
       <Header />
-      {children}
+      <section className="py-12">
+        <SfBanner />
+        {children}
+      </section>
 
       <Footer simple fixed />
 

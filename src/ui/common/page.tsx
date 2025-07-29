@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <main className="min-h-screen py-12 flex flex-col">
+      <main className="min-h-screen flex flex-col">
         <div className="flex w-full grow flex-col gap-4">
           <section className="-mt-px flex flex-col gap-2 overflow-hidden salmon:flex-row salmon:gap-0">
             <div className="-mr-px w-[calc(100%+1px)] salmon:w-[calc(50%+1px)]">
