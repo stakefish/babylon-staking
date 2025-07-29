@@ -63,11 +63,11 @@ export function StakingForm() {
           </div>
         }
       >
-        <div className="flex flex-col gap-6 lg:flex-row mx-4 justify-center">
+        <div className="flex flex-col gap-6 2xl:flex-row mx-4 justify-center">
           <div className="flex-1 min-w-0 h-fit">
             <Activity />
           </div>
-          <Card className="flex lg:w-2/5 xl:w-1/3 h-fit">
+          <Card className="flex w-full 2xl:w-1/4 h-fit">
             <DelegationForm
               loading={loading}
               blocked={blocked}

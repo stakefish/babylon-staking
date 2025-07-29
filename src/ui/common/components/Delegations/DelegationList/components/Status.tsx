@@ -185,7 +185,11 @@ export function Status({ delegation }: StatusProps) {
   } = delegationStatus ?? {};
 
   return (
-    <Hint tooltip={tooltip} status={status}>
+    <Hint
+      tooltip={tooltip}
+      status={status}
+      wrapperClassName="whitespace-pre-line break-words"
+    >
       {label}
     </Hint>
   );

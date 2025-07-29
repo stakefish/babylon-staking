@@ -3,7 +3,7 @@
     @apply relative z-[2] block [&>*:nth-child(2)]:border-itemPrimaryDefault;
   }
   .app-table-col {
-    @apply text-desktopCallout relative flex h-full flex-grow-0 border-collapse items-center text-ellipsis whitespace-nowrap border-b border-l-[1px] border-itemSecondaryMute border-b-itemSecondaryMute bg-inherit px-4 py-3 text-start last:border-r-[1px];
+    @apply text-desktopCallout relative flex h-full flex-grow-0 border-collapse items-center text-ellipsis whitespace-nowrap border-b border-l-[1px] border-itemSecondaryMute border-b-itemSecondaryMute bg-inherit px-2 py-3 text-start last:border-r-[1px];
   }
   .app-table-row {
     @apply relative flex h-10 border-collapse items-center bg-backgroundPrimaryDefault hover:bg-backgroundPrimaryHighlight hover:text-backgroundPrimaryOnHighlight focus:border-b focus:border-t focus:border-itemSecondaryDefault focus:bg-backgroundPrimaryHighlight focus:text-backgroundPrimaryOnHighlight focus:outline-none focus-visible:border-b focus-visible:border-t focus-visible:border-itemSecondaryDefault focus-visible:outline-none;

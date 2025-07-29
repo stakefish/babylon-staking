@@ -133,6 +133,7 @@ const DelegationState: React.FC<{
     <Hint
       tooltip={renderStateTooltip()}
       status={isSlashed ? "warning" : "default"}
+      wrapperClassName="whitespace-pre-line break-words"
     >
       {renderState()}
     </Hint>
@@ -178,7 +179,7 @@ export const Delegation: React.FC<DelegationProps> = ({
   return (
     <>
       <tr className="bg-surface app-table-row table-row">
-        <DelegationCell>
+        <DelegationCell className="whitespace-pre-line break-words">
           {durationTillNow(startTimestamp, currentTime)}
         </DelegationCell>
 
