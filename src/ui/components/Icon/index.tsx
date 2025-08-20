@@ -18,6 +18,7 @@ const iconMap: Record<T.IconKeyVariant, FC<{ variant: T.IconVariant }>> = {
   infoCircleFilled: Icons.InfoCircleFilled,
   ethLogo: Icons.EthLogo,
   babylonLogo: Icons.BabylonLogo,
+  solanaLogo: Icons.SolanaLogo,
   instagram: Icons.Instagram,
   telegram: Icons.Telegram,
   linkedIn: Icons.LinkedIn,
