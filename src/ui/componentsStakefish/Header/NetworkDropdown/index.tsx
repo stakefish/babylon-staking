@@ -29,7 +29,7 @@ export const NetworkDropdown = () => {
             "data-[state=open]:ring-itemSecondaryDefault hover:ring-itemSecondaryDefault ring-itemPrimaryDefaultAlt2 ring-1 ring-inset disabled:backgroundSecondaryOnDefault h-full py-[9px] flounder:!py-[9px] salmon:!py-1.5 gap-1 !px-3",
           )}
         >
-          {!isMd ? dashboardNavs["babylon"].displayName : undefined}
+          {!isMd ? dashboardNavs["babylon"].shortName : undefined}
         </Button>
       </Dropdown.Trigger>
       <Dropdown.Content
@@ -38,7 +38,8 @@ export const NetworkDropdown = () => {
         className="w-[180px] pointer-events-auto"
       >
         {ProtocolVariants.map((protocol, index) => {
-          const isConnected = dashboardNavs[protocol].displayName === "Babylon";
+          const isConnected =
+            dashboardNavs[protocol].displayName === "Babylon Bitcoin";
           return (
             <Dropdown.Item key={index} className="mb-px" asChild>
               <Button
@@ -55,6 +56,7 @@ export const NetworkDropdown = () => {
                   isConnected && "!bg-backgroundPrimaryMute",
                 )}
                 href={dashboardNavs[protocol].link}
+                ignoreTargetBlank
               >
                 {dashboardNavs[protocol].displayName}
               </Button>

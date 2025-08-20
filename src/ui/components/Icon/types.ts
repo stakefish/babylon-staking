@@ -5,6 +5,7 @@ export const IconKeyVariants = [
   "infoCircleFilled",
   "ethLogo",
   "babylonLogo",
+  "solanaLogo",
   "instagram",
   "telegram",
   "linkedIn",
