@@ -1,7 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Button, type ButtonProps } from "@/ui";
 import { useAppState } from "@/ui/common/state";
+
+import { getCookie, setCookie, THEME_COOKIE_NAME } from "../utils";
 
 type ThemeTogglerProps = {
   buttonProps?: ButtonProps;
@@ -11,7 +13,15 @@ export const ThemeToggler = ({ buttonProps }: ThemeTogglerProps) => {
 
   const toggleTheme = useCallback(() => {
     setTheme(theme === "light" ? "dark" : "light");
+    setCookie(THEME_COOKIE_NAME, theme === "light" ? "dark" : "light");
   }, [theme, setTheme]);
+
+  useEffect(() => {
+    const theme = getCookie(THEME_COOKIE_NAME);
+    if (theme) {
+      setTheme(theme as "light" | "dark");
+    }
+  }, [setTheme]);
 
   return (
     <Button
