@@ -2,11 +2,7 @@ export const THEME_COOKIE_NAME = "stakefish:theme";
 
 const DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN || ".stake.fish";
 
-export const setCookie = (
-  name: string,
-  value: string,
-  withExpiry?: boolean,
-) => {
+export const setCookie = (name: string, value: string, withExpiry = false) => {
   const expiryDate = new Date(Date.now() + 86400000 * 365);
 
   if (withExpiry) {
