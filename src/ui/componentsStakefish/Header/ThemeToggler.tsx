@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 
 import { Button, type ButtonProps } from "@/ui";
+import { useThemeSync } from "@/ui/common/hooks/useThemeSync";
 import { useAppState } from "@/ui/common/state";
 
 type ThemeTogglerProps = {
@@ -8,10 +9,12 @@ type ThemeTogglerProps = {
 };
 export const ThemeToggler = ({ buttonProps }: ThemeTogglerProps) => {
   const { theme, setTheme } = useAppState();
+  const { updateTheme } = useThemeSync({ theme, setTheme });
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === "light" ? "dark" : "light");
-  }, [theme, setTheme]);
+    const newTheme = theme === "light" ? "dark" : "light";
+    updateTheme(newTheme);
+  }, [theme, updateTheme]);
 
   return (
     <Button
