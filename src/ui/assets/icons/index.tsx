@@ -51,6 +51,7 @@ export { default as Fingerprint } from "./Fingerprint";
 export { default as Flag } from "./Flag";
 export { default as Globe } from "./Globe";
 export { default as Hand } from "./Hand";
+export { default as SolanaLogo } from "./SolanaLogo";
 // 48px icons
 export { default as HeroDashboard } from "./HeroDashboard";
 export { default as HeroFee } from "./HeroFee";

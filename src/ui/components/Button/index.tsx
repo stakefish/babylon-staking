@@ -28,14 +28,16 @@ export const Button = forwardRef<
       icon,
       disabled,
       application,
+      ignoreTargetBlank,
       ...rest
     },
     ref,
   ) => {
     const ButtonElement = Element || as || (href ? "a" : "button");
-    const linkDefaultProps = href?.includes("http")
-      ? { href, rel: "noopener noreferrer", target: "_blank" }
-      : { href };
+    const linkDefaultProps =
+      href?.includes("http") && !ignoreTargetBlank
+        ? { href, rel: "noopener noreferrer", target: "_blank" }
+        : { href };
     const defaultProps =
       Element === "button" ? { type: "button" } : linkDefaultProps;
     const Comp = asChild ? Slot : ButtonElement;

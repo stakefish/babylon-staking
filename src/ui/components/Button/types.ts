@@ -30,6 +30,7 @@ export interface ButtonProps
   download?: boolean | string;
   children?: ReactNode | ReactNode[];
   ref?: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>;
+  ignoreTargetBlank?: boolean;
 }
 
 export interface ButtonStoryProps extends ButtonProps {
