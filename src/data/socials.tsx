@@ -29,7 +29,7 @@ export const socialLinks: SocialLinkProps[] = [
   },
   {
     icon: "instagram",
-    url: "https://instagram.com/stakedotfish",
+    url: "https://instagram.com/stake.fish",
     title: "Instagram",
   },
   {
